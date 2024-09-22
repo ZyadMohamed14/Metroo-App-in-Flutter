@@ -50,29 +50,34 @@ dev_dependencies:
   dartx: ^1.2.0
   drop_down_list: ^0.0.7
   fluttertoast: ^8.2.1
+  geolocator: ^13.0.1
+  geocoding: any
+  dartz: ^0.10.1
+  flutter_bloc: ^8.1.6
+  get_it: ^7.7.0
+  get: ^4.6.6
+  dio: ^5.4.3+1
+  flutter_polyline_points: ^2.0.1
+  google_maps_flutter: ^2.6.1
+  material_floating_search_bar_2: ^0.5.0
+  url_launcher: ^6.3.0
+  uuid: ^4.4.0
   shared_preferences: ^2.0.6
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter packages.
+
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/
   #   - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -92,3 +97,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+

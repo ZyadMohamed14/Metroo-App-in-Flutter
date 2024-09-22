@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/station.dart';
+import '../../domain/model/station.dart';
 import '../widget/stattion_item.dart';
 
 class StationDetailsScreen extends StatelessWidget {

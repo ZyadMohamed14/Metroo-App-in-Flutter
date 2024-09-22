@@ -32,12 +32,20 @@ class _AppDropDownMenuState extends State<AppDropDownMenu> {
           }
         },
         isDismissible: true,
-        bottomSheetTitle:  Text(
-          widget.title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20.0,
-          ),
+        bottomSheetTitle:  Row(
+          children: [
+            Image.asset('assets/train.png', width: 32, height: 32),
+            const SizedBox(
+              width: 5.0,
+            ),
+            Text(
+              widget.title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+            ),
+          ],
         ),
         submitButtonChild: const Text(
           'Done',
@@ -79,7 +87,16 @@ class _AppDropDownMenuState extends State<AppDropDownMenu> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.title),
+
+        Row(
+          children: [
+            Image.asset('assets/train.png', width: 32, height: 32),
+            const SizedBox(
+              width: 5.0,
+            ),
+            Text(widget.title),
+          ],
+        ),
         const SizedBox(
           height: 5.0,
         ),
