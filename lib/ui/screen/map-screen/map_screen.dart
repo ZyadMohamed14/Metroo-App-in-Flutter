@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../domain/model/place_direction.dart';
-import '../presentation/map/maps_cubi_cubit.dart';
+import '../../../domain/model/place_direction.dart';
+import '../../presentation/map/maps_cubi_cubit.dart';
 
 class MapScreen extends StatefulWidget {
   final LatLng currentLocationposition;
@@ -72,6 +72,8 @@ class _MyWidgetState extends State<MapScreen> {
             ),
           ),
           buildDiretionsBloc(),
+
+
         ],
       ),
       floatingActionButton: Container(

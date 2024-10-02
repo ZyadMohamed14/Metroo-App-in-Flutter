@@ -75,7 +75,7 @@ class CairoLines {
       "El Bohy",
       "Imbaba",
       "Sudan",
-      "Kit Kate",
+      "KitKate",
       "Safay Hegazy",
       "Maspero",
       "Nasser",
@@ -103,13 +103,21 @@ class CairoLines {
   }
 
   static List<String> kitKatCairoUniversityLine = [
-    "Kit Kate",
+    "KitKate",
     "Tawfikia",
     "Wadi El-Nail",
     "Gamat El-Dawel",
     "Bolaq El-Dakror",
-    "Cairo University"
+    "CairoUniversity"
   ];
+  static Map<String,String> transitionStation = {
+    "Sadat":"Transition With Line 1 and Line 2",
+    "Nasser":"Transition With Line 1 and Line 3",
+    "Attaba":"Transition With Line 2 and Line 3",
+    "Al-Shohadaa":"Transition With Line 1 and Line 2",
+    "CairoUniversity":"Transition With CairoUniversity Branch and Line 3",
+    "KitKate":"Transition With CairoUniversity Branch and Line 2"
+  };
   static List<SelectedListItem> allCairoLines = [
     SelectedListItem(name: "Metro Line 1"),
     SelectedListItem(name: "Helwan"),
@@ -162,7 +170,7 @@ class CairoLines {
     SelectedListItem(name: "Opera"),
     SelectedListItem(name: "Dokki"),
     SelectedListItem(name: "Bohooth"),
-    SelectedListItem(name: "Cairo University"),
+    SelectedListItem(name: "CairoUniversity"),
     SelectedListItem(name: "Faisal"),
     SelectedListItem(name: "Giza"),
     SelectedListItem(name: "Omm El-Masryeen"),

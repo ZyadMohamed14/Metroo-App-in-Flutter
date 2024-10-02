@@ -1,6 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:dartz/dartz.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocationHelper {
   static Future<Position> getCurrentLocation() async {
@@ -12,8 +13,39 @@ class LocationHelper {
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
   }
+  // static Future<Either<String, LatLng>> getCurrentLocation() async {
+  //
+  //   try{
+  //     LocationPermission permission = await Geolocator.checkPermission();
+  //     // If permission is already granted, return true
+  //     if (permission == LocationPermission.whileInUse ||
+  //         permission == LocationPermission.always) {
+  //       final position =  await Geolocator.getCurrentPosition(
+  //           desiredAccuracy: LocationAccuracy.high);
+  //       return Right(LatLng(position.latitude,position.longitude));
+  //     }
+  //     // Request permission if it is denied
+  //     permission = await Geolocator.requestPermission();
+  //
+  //     // Return location if permission is granted, false otherwise
+  //     if (permission == LocationPermission.whileInUse ||
+  //         permission == LocationPermission.always) {
+  //       final position =  await Geolocator.getCurrentPosition(
+  //           desiredAccuracy: LocationAccuracy.high);
+  //       return Right(LatLng(position.latitude,position.longitude));
+  //     }
+  //     else{
+  //       return const Left("Please Enable Location Services To Find Nearest Station For You");
+  //     }
+  //
+  //   }catch (e) {
+  //     // Log the exception or handle it as needed
+  //     print('Error checking or requesting location permission: $e');
+  //     return const Left("Error checking or requesting location permission");
+  //   }
+  // }
 
-  static Future<bool> checkPermission() async {
+  static Future<bool> checkLocationPermission() async {
     try {
       LocationPermission permission = await Geolocator.checkPermission();
 
@@ -38,7 +70,7 @@ class LocationHelper {
 
   static Future<Either<String, Location>> getLatLngFromAddress(String address) async {
     // Make sure to handle permissions if needed
-    if (await checkPermission()) {
+    if (await checkLocationPermission()) {
       try {
 
         String fullAddress = "$address, Egypt";
