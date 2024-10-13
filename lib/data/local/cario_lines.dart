@@ -1,56 +1,99 @@
 import 'package:drop_down_list/model/selected_list_item.dart';
+import 'package:get/get.dart';
 class CairoLines {
   static List<String> cairoLine1() {
     List<String> metroLine1 = [
-      "Helwan",
+      "helwan".tr,
       "Ain Helwan",
       "Helwan University",
       "Wadi Hof",
       "Hadayek Helwan",
-      "El-Maasara",
-      "Tora El-Asmant",
+      "ElMaasara",
+      "Tora ElAsmant",
       "Kozzika",
-      "Tora El-Balad",
-      "Sakanat El-Maadi",
+      "Tora ElBalad",
+      "Sakanat ElMaadi",
       "Maadi",
-      "Hadayek El-Maadi",
-      "Dar El-Salam",
-      "El-Zahraa",
+      "Hadayek ElMaadi",
+      "Dar ElSalam",
+      "ElZahraa",
       "Mar Girgis",
-      "El-Malek El-Saleh",
-      "Al-Sayeda Zeinab",
+      "ElMalek ElSaleh",
+      "AlSayeda Zeinab",
       "Saad Zaghloul",
       "Sadat",
       "Nasser",
       "Orabi",
-      "Al-Shohadaa",
+      "AlShohadaa",
       "Ghamra",
-      "El-Demerdash",
-      "Manshiet El-Sadr",
-      "Kobri El-Qobba",
-      "Hammamat El-Qobba",
-      "Saray El-Qobba",
-      "Hadayeq El-Zaitoun",
-      "Helmeyet El-Zaitoun",
-      "El-Matareyya",
+      "ElDemerdash",
+      "Manshiet ElSadr",
+      "Kobri ElQobba",
+      "Hammamat ElQobba",
+      "Saray ElQobba",
+      "Hadayeq ElZaitoun",
+      "Helmeyet ElZaitoun",
+      "ElMatareyya",
       "Ain Shams",
-      "Ezbet El-Nakhl",
-      "El-Marg",
-      "New El-Marg"
+      "Ezbet ElNakhl",
+      "ElMarg",
+      "New ElMarg"
     ];
     return metroLine1;
   }
+  static List<String> cairoLine1Ar() {
+    List<String> cairoLine1Ar = [
+      "حلوان",
+      "عين حلوان",
+      "جامعة حلوان",
+      "وادي حوف",
+      "حدائق حلوان",
+      "المعصرة",
+      "طره الأسمنت",
+      "كوتسيكا",
+      "طرة البلد",
+      "سكنات المعادي",
+      "المعادي",
+      "حدائق المعادي",
+      "دار السلام",
+      "الزهراء",
+      "مار جرجس",
+      "الملك الصالح",
+      "السيدة زينب",
+      "سعد زغلول",
+      "السادات",
+      "ناصر",
+      "عرابي",
+      "الشهداء",
+      "غمرة",
+      "الدمرداش",
+      "منشية الصدر",
+      "كوبري القبة",
+      "حمامات القبة",
+      "سراي القبة",
+      "حدائق الزيتون",
+      "حلمية الزيتون",
+      "المطرية",
+      "عين شمس",
+      "عزبة النخل",
+      "المرج",
+      "المرج الجديدة",
+    ];
+
+    return cairoLine1Ar;
+  }
+
 
   static List<String> cairoLine2() {
     List<String> metroLine2 = [
-      "Shobra El-Kheima",
-      "Kolleyyet El-Zeraa",
+      "Shobra ElKheima",
+      "Kolleyyet ElZeraa",
       "Mezallat",
       "Khalafawy",
       "St. Teresa",
-      "Rod El-Farag",
+      "Rod ElFarag",
       "Massara",
-      "Al-Shohadaa",
+      "AlShohadaa",
       "Attaba",
       "Mohamed Naguib",
       "Sadat",
@@ -60,11 +103,37 @@ class CairoLines {
       "CairoUniversity",
       "Faisal",
       "Giza",
-      "Omm El-Masryeen",
+      "Omm ElMasryeen",
       "Sakiat Mekki",
-      "El-Mounib"
+      "ElMounib"
     ];
     return metroLine2;
+  }
+  static List<String> cairoLine2Ar() {
+    List<String> cairoLine2Ar = [
+      "شبرا الخيمة",
+      "كلية الزراعة",
+      "مظلات",
+      "خلفاوي",
+      "سانت تيريز",
+      "روض الفرج",
+      "المسرة",
+      "الشهداء",
+      "العتبه",
+      "محمد نجيب",
+      "السادات",
+      "الأوبرا",
+      "الدقي",
+      "البحوث",
+      "جامعة القاهرة",
+      "فيصل",
+      "الجيزة",
+      "أم المصريين",
+      "ساقية مكي",
+      "المنيب"
+    ];
+
+    return cairoLine2Ar;
   }
 
   static List<String> cairoLine3() {
@@ -75,7 +144,7 @@ class CairoLines {
       "El Bohy",
       "Imbaba",
       "Sudan",
-      "KitKate",
+      "KitKat",
       "Safay Hegazy",
       "Maspero",
       "Nasser",
@@ -86,7 +155,7 @@ class CairoLines {
       "Abbasia",
       "Cairo Fair",
       "Stadium",
-      "Kolleyet El-Banat",
+      "Kolleyet ElBanat",
       "Al Ahram",
       "Haroun",
       "Heliopolis",
@@ -101,15 +170,59 @@ class CairoLines {
     ];
     return metroLine3;
   }
+  static List<String> cairoLine3Ar() {
+    List<String> cairoLine3Ar = [
+      "محور روض الفرج",
+      "طريق الدائري",
+      "القومية",
+      "البوهي",
+      "إمبابة",
+      "السودان",
+      "الكيت كات",
+      "صفاء حجازي",
+      "ماسبيرو",
+      'ناصر',
+      'العتبه',
+      "باب الشعريه",
+      "الجيش",
+      "عبده باشا",
+      "عباسية",
+      "معرض القاهرة",
+      "استاد",
+      "كلية البنات",
+      "الأهرام",
+      "هارون",
+      "هيليوبوليس",
+      "ألف مسكن",
+      "نادي الشمس",
+      "النزهة",
+      "هشام بركات",
+      "قباء",
+      "عمر بن الخطاب",
+      "الهايكستب",
+      "عدلي منصور"
+    ];
+
+    return cairoLine3Ar;
+  }
 
   static List<String> kitKatCairoUniversityLine = [
-    "KitKate",
+    "KitKat",
     "Tawfikia",
-    "Wadi El-Nail",
-    "Gamat El-Dawel",
-    "Bolaq El-Dakror",
+    "Wadi ElNail",
+    "Gamat ElDawel",
+    "Bolaq ElDakror",
     "CairoUniversity"
   ];
+  static List<String> kitKatCairoUniversityLineAr = [
+    "الكيت كات",
+    "التوفيقية",
+    "وادي النيل",
+    "جامعة الدول",
+    "بولاق الدكرور",
+    "جامعة القاهرة"
+  ];
+
   static Map<String,String> transitionStation = {
     "Sadat":"Transition With Line 1 and Line 2",
     "Nasser":"Transition With Line 1 and Line 3",
@@ -118,98 +231,35 @@ class CairoLines {
     "CairoUniversity":"Transition With CairoUniversity Branch and Line 3",
     "KitKate":"Transition With CairoUniversity Branch and Line 2"
   };
-  static List<SelectedListItem> allCairoLines = [
-    SelectedListItem(name: "Metro Line 1"),
-    SelectedListItem(name: "Helwan"),
-    SelectedListItem(name: "Ain Helwan"),
-    SelectedListItem(name: "Helwan University"),
-    SelectedListItem(name: "Wadi Hof"),
-    SelectedListItem(name: "Hadayek Helwan"),
-    SelectedListItem(name: "El-Maasara"),
-    SelectedListItem(name: "Tora El-Asmant"),
-    SelectedListItem(name: "Kozzika"),
-    SelectedListItem(name: "Tora El-Balad"),
-    SelectedListItem(name: "Sakanat El-Maadi"),
-    SelectedListItem(name: "Maadi"),
-    SelectedListItem(name: "Hadayek El-Maadi"),
-    SelectedListItem(name: "Dar El-Salam"),
-    SelectedListItem(name: "El-Zahraa"),
-    SelectedListItem(name: "Mar Girgis"),
-    SelectedListItem(name: "El-Malek El-Saleh"),
-    SelectedListItem(name: "Al-Sayeda Zeinab"),
-    SelectedListItem(name: "Saad Zaghloul"),
-    SelectedListItem(name: "Sadat"),
-    SelectedListItem(name: "Nasser"),
-    SelectedListItem(name: "Orabi"),
-    SelectedListItem(name: "Al-Shohadaa"),
-    SelectedListItem(name: "Ghamra"),
-    SelectedListItem(name: "El-Demerdash"),
-    SelectedListItem(name: "Manshiet El-Sadr"),
-    SelectedListItem(name: "Kobri El-Qobba"),
-    SelectedListItem(name: "Hammamat El-Qobba"),
-    SelectedListItem(name: "Saray El-Qobba"),
-    SelectedListItem(name: "Hadayeq El-Zaitoun"),
-    SelectedListItem(name: "Helmeyet El-Zaitoun"),
-    SelectedListItem(name: "El-Matareyya"),
-    SelectedListItem(name: "Ain Shams"),
-    SelectedListItem(name: "Ezbet El-Nakhl"),
-    SelectedListItem(name: "El-Marg"),
-    SelectedListItem(name: "New El-Marg"),
-    SelectedListItem(name: "Metro Line 2"),
-    SelectedListItem(name: "Shobra El-Kheima"),
-    SelectedListItem(name: "Kolleyyet El-Zeraa"),
-    SelectedListItem(name: "Mezallat"),
-    SelectedListItem(name: "Khalafawy"),
-    SelectedListItem(name: "St. Teresa"),
-    SelectedListItem(name: "Rod El-Farag"),
-    SelectedListItem(name: "Massara"),
-    SelectedListItem(name: "Al-Shohadaa"),
-    SelectedListItem(name: "Attaba"),
-    SelectedListItem(name: "Mohamed Naguib"),
-    SelectedListItem(name: "Sadat"),
-    SelectedListItem(name: "Opera"),
-    SelectedListItem(name: "Dokki"),
-    SelectedListItem(name: "Bohooth"),
-    SelectedListItem(name: "CairoUniversity"),
-    SelectedListItem(name: "Faisal"),
-    SelectedListItem(name: "Giza"),
-    SelectedListItem(name: "Omm El-Masryeen"),
-    SelectedListItem(name: "Sakiat Mekki"),
-    SelectedListItem(name: "El-Mounib"),
-    SelectedListItem(name: "Metro Line 3"),
-    SelectedListItem(name: "Road El Farg Corr"),
-    SelectedListItem(name: "Ring Road"),
-    SelectedListItem(name: "El Qumia"),
-    SelectedListItem(name: "El Bohy"),
-    SelectedListItem(name: "Imbaba"),
-    SelectedListItem(name: "Sudan"),
-    SelectedListItem(name: "Kit Kate"),
-    SelectedListItem(name: "Safay Hegazy"),
-    SelectedListItem(name: "Maspero"),
-    SelectedListItem(name: "Nasser"),
-    SelectedListItem(name: "Attaba"),
-    SelectedListItem(name: "Bab El Shaaria"),
-    SelectedListItem(name: "El Geish"),
-    SelectedListItem(name: "Abdou Pasha"),
-    SelectedListItem(name: "Abbasia"),
-    SelectedListItem(name: "Cairo Fair"),
-    SelectedListItem(name: "Stadium"),
-    SelectedListItem(name: "Kolleyet El-Banat"),
-    SelectedListItem(name: "Al Ahram"),
-    SelectedListItem(name: "Haroun"),
-    SelectedListItem(name: "Heliopolis"),
-    SelectedListItem(name: "Alf Maskan"),
-    SelectedListItem(name: "Nadi El Shams"),
-    SelectedListItem(name: "Al Nozha"),
-    SelectedListItem(name: "Hesham Barkat"),
-    SelectedListItem(name: "Qubaa"),
-    SelectedListItem(name: "Omar Ebn El Khattab"),
-    SelectedListItem(name: "El Hayikstep"),
-    SelectedListItem(name: "Adly Mansour"),
-    SelectedListItem(name: "KitKate Cairo Branch"),
-    SelectedListItem(name: "Tawfikia"),
-    SelectedListItem(name: "Wadi El-Nail"),
-    SelectedListItem(name: "Gamat El-Dawel"),
-    SelectedListItem(name: "Bolaq El-Dakror"),
+  static Map<String, String> transitionStationAr = {
+    "السادات": "محطة تبادلية مع الخط الأول والخط الثاني",
+    "ناصر": "محطة تبادلية مع الخط الأول والخط الثالث",
+    "العتبه": "محطة تبادلية مع الخط الثاني والخط الثالث",
+    "الشهداء": "محطة تبادلية مع الخط الأول والخط الثاني",
+    "جامعة القاهرة": "محطة تبادلية مع فرع جامعة القاهرة والخط الثالث",
+    "الكيت كات": "محطة تبادلية مع فرع جامعة القاهرة والخط الثاني"
+  };
+  static List<SelectedListItem> allCairoLinesEnglish = [
+    ...cairoLine1().map((station) => SelectedListItem(name: station)),
+    ...cairoLine2().map((station) => SelectedListItem(name: station)),
+    ...cairoLine3().map((station) => SelectedListItem(name: station)),
+    ...kitKatCairoUniversityLine.map((station) => SelectedListItem(name: station))
   ];
-}
+  static List<SelectedListItem> allCairoLinesArabic = [
+    ...cairoLine1Ar().map((station) => SelectedListItem(name: station)),
+    ...cairoLine2Ar().map((station) => SelectedListItem(name: station)),
+    ...cairoLine3Ar().map((station) => SelectedListItem(name: station)),
+    ...kitKatCairoUniversityLineAr.map((station) => SelectedListItem(name: station)),
+  ];
+
+
+
+  static List<SelectedListItem> getMetroStations(String language) {
+    if (language == 'en') {
+      return allCairoLinesEnglish; // Return English list if language is English
+    } else {
+      return allCairoLinesArabic; // Default to Arabic
+    }
+  }
+
+  }

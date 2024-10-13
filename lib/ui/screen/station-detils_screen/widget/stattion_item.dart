@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metroappinflutter/domain/model/station.dart';
+import 'package:metroappinflutter/helper/extentions.dart';
 
 import '../../../../data/local/station_database.dart';
 import 'new_station_item_ui.dart';
@@ -13,7 +14,10 @@ class StationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String time = '${station.getTime()} mins';
+
+    String time = formatTime(station.getTime().toInt());
+    // Determine the text direction
+    bool isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -31,12 +35,12 @@ class StationItem extends StatelessWidget {
                 // Section with origin and destination
                 buildRowItem(
                   icon: Icons.location_on,
-                  header: "Origin",
+                  header: "origin".tr,
                   data: station.getStart(),
                 ),
                 buildRowItem(
                   icon: Icons.flag,
-                  header: "Destination",
+                  header: "destination".tr,
                   data: station.getEnd(),
                 ),
                 const Divider(), // Divider for clarity
@@ -44,13 +48,13 @@ class StationItem extends StatelessWidget {
                 // Time and number of stations
                 buildRowItem(
                   icon: Icons.access_time,
-                  header: "Time",
+                  header: 'time'.tr,
                   data: time,
                   textColor: Colors.green, // Highlighted
                 ),
                 buildRowItem(
                   icon: Icons.directions_subway,
-                  header: "Number of Stations",
+                  header: "number_of_stations".tr,
                   data: station.getNoOfStations().toString(),
                 ),
                 const Divider(),
@@ -58,13 +62,13 @@ class StationItem extends StatelessWidget {
                 // Ticket price and direction
                 buildRowItem(
                   icon: Icons.attach_money,
-                  header: "Ticket Price",
+                  header: 'ticket_price'.tr,
                   data: "\$${station.getTicketPrice().toStringAsFixed(2)}",
                   textColor: Colors.green, // Highlighted
                 ),
                 buildRowItem(
                   icon: Icons.navigation,
-                  header: "Direction",
+                  header: 'direction'.tr,
                   data: station.getDirection(),
                 ),
                 const SizedBox(height: 10),
@@ -86,9 +90,9 @@ class StationItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30), // Rounded button
                       ),
                     ),
-                    child: const Text(
-                      "View Route Details",
-                      style: TextStyle(
+                    child:  Text(
+                      'view_route_details'.tr,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -100,10 +104,10 @@ class StationItem extends StatelessWidget {
           ),
           // Positioned save icon
           Positioned(
-            right: 16,
-            top: 16,
+            left: isRtl ? 16 : null,
+            right: isRtl ? null : 16,
             child: IconButton(
-              icon: Icon(Icons.save, color: Colors.green), // Save icon
+              icon: const Icon(Icons.save, color: Colors.green), // Save icon
               onPressed: () async {
                 await saveStation(station); // Save station logic
 
@@ -120,7 +124,7 @@ class StationItem extends StatelessWidget {
     try {
       await dbHelper.insertStation(station); // Insert station into the database
       Fluttertoast.showToast(
-        msg: "Route saved successfully!", // Toast message
+        msg: 'route_saved_successfully'.tr, // Toast message
         toastLength: Toast.LENGTH_SHORT, // Duration
         gravity: ToastGravity.BOTTOM, // Position
         timeInSecForIosWeb: 1, // Duration for iOS web
@@ -129,9 +133,9 @@ class StationItem extends StatelessWidget {
         fontSize: 16.0, // Font size
       );
     } catch (e) {
-      print('errorrrrrrrr${e}');
+
       Fluttertoast.showToast(
-        msg: "Failed to save Route: ", // Error message
+        msg: 'failed_to_save_route'.tr, // Error message
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.red,

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../domain/model/metroo_operation.dart';
 import 'metro_operation-card.dart';
 import 'metro_pricing_bottmsheet.dart';
-
+import 'package:get/get.dart';
 // Placeholder for the Historical Places page content
 class ServicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Historical Places'),
+        title: Text('service'.tr),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
@@ -21,7 +21,7 @@ class ServicesScreen extends StatelessWidget {
           children: [
             _buildServiceCard(
               context,
-              title: 'Metro Operation',
+              title: 'metro_operation'.tr,
               icon: Icons.train,
               gradientColors: [Colors.blue, Colors.blueAccent],
               onPressed: () {
@@ -31,7 +31,7 @@ class ServicesScreen extends StatelessWidget {
             const SizedBox(height: 20),
             _buildServiceCard(
               context,
-              title: 'Metro Pricing',
+              title: 'metro_pricing'.tr,
               icon: Icons.attach_money,
               gradientColors: [Colors.green, Colors.greenAccent],
               onPressed: () {

@@ -2,7 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:metroappinflutter/data/local/station_database.dart';
 import 'package:metroappinflutter/data/local/station_entity.dart';
-
+import 'package:get/get.dart';
+import 'package:metroappinflutter/domain/model/station.dart';
+import '../../../helper/extentions.dart';
+import '../station-detils_screen/station_screen.dart';
 import '../station-detils_screen/widget/stattion_item.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -15,12 +18,9 @@ class HistoryPage extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
               child: CircularProgressIndicator()); // Show loading indicator
-        } else if (snapshot.hasError) {
-          return Center(
-              child: Text('Error: ${snapshot.error}')); // Show error message
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(
-              child: Text('No saved stations found.')); // No data message
+        }  else if (!snapshot.hasData || snapshot.data!.isEmpty||snapshot.hasError) {
+          return  Center(
+              child: Text('noSavedStations'.tr)); // No data message
         } else {
           final stations = snapshot.data!; // Get the list of stations
           return ListView.builder(
@@ -45,8 +45,8 @@ class HistoryPage extends StatelessWidget {
                           // Use Expanded for the text to ensure it doesn't overflow
                           Expanded(
                             child: Text(
-                              '${station.start} to ${station.end}',
-                              style: TextStyle(
+                              '${station.start} ${'to'.tr} ${station.end}',
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black87,
@@ -60,6 +60,14 @@ class HistoryPage extends StatelessWidget {
                           ElevatedButton.icon(
                             onPressed: () {
                               // Action when 'View Details' is pressed
+                              // Convert the List<StationEntity> to List<Station>
+                              List<Station> stationsList = stations.map((e) => e.toStation()).toList();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => StationDetailsScreen(stations: stationsList),
+                                ),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueAccent,
@@ -70,9 +78,9 @@ class HistoryPage extends StatelessWidget {
                             ),
                             icon: const Icon(
                                 Icons.info, color: Colors.white, size: 16),
-                            label: const Text(
-                              'View Details',
-                              style: TextStyle(
+                            label:  Text(
+                              'view_route_details'.tr,
+                              style: const TextStyle(
                                   fontSize: 14, color: Colors.white),
                             ),
                           ),
@@ -83,25 +91,25 @@ class HistoryPage extends StatelessWidget {
 
                       buildRowItem(
                         icon: Icons.access_time,
-                        header: 'Time',
-                        data: '${station.time} mins',
+                        header: 'time'.tr,
+                        data: formatTime(station.time.toInt()),
                         textColor: Colors.grey[700]!,
                       ),
                       buildRowItem(
                         icon: Icons.train,
-                        header: 'No. of Stations',
+                        header: 'number_of_stations'.tr,
                         data: '${station.noOfStations}',
                         textColor: Colors.grey[700]!,
                       ),
                       buildRowItem(
                         icon: Icons.attach_money,
-                        header: 'Price',
+                        header: 'price'.tr,
                         data: '\$${station.ticketPrice}',
                         textColor: Colors.green[700]!,
                       ),
                       buildRowItem(
                         icon: Icons.navigation,
-                        header: 'Direction',
+                        header: 'direction'.tr,
                         data: station.direction,
                         textColor: Colors.blueAccent,
                       ),

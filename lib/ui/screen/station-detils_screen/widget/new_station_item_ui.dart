@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:metroappinflutter/helper/extentions.dart';
-
 import '../../../../domain/model/station.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import '../../../shared_widgets/app_bar.dart';
 class StationDetailsItem extends StatelessWidget {
   final Station station;
-  List transList = [];
-
+   List<String>transList=[];
+  String currentLanguage  = Get.locale!.languageCode;
   StationDetailsItem({super.key, required this.station});
 
   @override
   Widget build(BuildContext context) {
 
-    transList = extractTransitionStations(station.direction);
+    String noOfStations='';
+    String tiketPrice='';
+     transList = station.transList;
+     if(currentLanguage=='ar'){
+        noOfStations =  station.path.length.toString().toArabicNumbers();
+        tiketPrice =   station.ticketPrice.toString().toArabicNumbers();
+
+     }else{
+       noOfStations =  station.path.length.toString();
+       tiketPrice =   station.ticketPrice.toString();
+     }
+
+     print(transList);
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Route Details'),
-        ), // Wrap the content in a Scaffold for proper layout handling
+        appBar: MetroAppBar(title: 'route_details'.tr,), // Wrap the content in a Scaffold for proper layout handling
         body: SingleChildScrollView(
           // Make the Column scrollable
           child: Container(
@@ -30,27 +40,27 @@ class StationDetailsItem extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      detailsItem(" Stations", station.path.length.toString(),
+                      detailsItem("stations".tr, noOfStations,
                           Icons.train),
                       const SizedBox(width: 10),
                       detailsItem(
-                          "Time", station.time.toString(), Icons.access_time),
+                          "time".tr, formatTime(station.time.toInt()), Icons.access_time),
                       const SizedBox(width: 10),
-                      detailsItem("Price", station.ticketPrice.toString(),
+                      detailsItem("price".tr,tiketPrice,
                           Icons.attach_money),
                       const SizedBox(width: 10),
                     ],
                   ),
                 ),
                 const SizedBox(height: 10),
-                originDestenationItem(station.start, "From"),
+                originDestenationItem(station.start, "from".tr),
                 const SizedBox(height: 10),
-                originDestenationItem(station.end, "To"),
+                originDestenationItem(station.end, "to".tr),
                 const SizedBox(height: 10),
 
                 // The station widgets and transition widget
                 buildStationWidgets(
-                    station, "Start Station (${station.end}) Direction"),
+                    station, 'stations'.tr),
                 const SizedBox(height: 10),
               ],
             ),
@@ -91,12 +101,14 @@ class StationDetailsItem extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            data,
-            style: GoogleFonts.gowunBatang(
-              color: Colors.black,
-              fontWeight: FontWeight.w700,
-              fontSize: 14,
+          FittedBox(
+            child: Text(
+              data,
+              style: GoogleFonts.gowunBatang(
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+              ),
             ),
           ),
         ],
@@ -204,9 +216,9 @@ class StationDetailsItem extends StatelessWidget {
   }
 
   Widget stationItem(
-      String stationName, int index, int listSize, Color lineColor) {
-    bool isTransitionStation = transList.contains(stationName.normalize());
-    if (isTransitionStation) stationName = '$stationName (Transition Station)';
+      String stationName, int index, int listSize, Color lineColor,) {
+    bool isTransitionStation = transList.contains(stationName);
+    if (isTransitionStation) stationName = '$stationName (${'transition_station'.tr})';
 
     Color transitionColor = Colors.orange;
     Color displayColor = isTransitionStation ? transitionColor : lineColor;
@@ -241,7 +253,7 @@ class StationDetailsItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Align(
-              alignment: Alignment.centerLeft,
+              alignment: currentLanguage=='ar'?Alignment.centerRight:Alignment.centerLeft,
               child: Container(
                 height: 40, // Set the height of the divider
                 width: 8, // Divider thickness
@@ -253,22 +265,8 @@ class StationDetailsItem extends StatelessWidget {
     );
   }
 
-  List<String> extractTransitionStations(String direction) {
-    // Split the string by the phrase "Change Direction at"
-    List<String> parts = direction.split("Change Direction at");
 
-    // List to store transition stations
-    List<String> transitionStations = [];
 
-    // Start from the second part (since the first part is before the first transition)
-    for (int i = 1; i < parts.length; i++) {
-      // Extract the first word after the split phrase
-      String station = parts[i].trim().split(' ')[0];
-      transitionStations.add(station);
-    }
-
-    return transitionStations;
-  }
 }
 
 

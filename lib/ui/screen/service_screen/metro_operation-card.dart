@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/model/metroo_operation.dart';
-
+import 'package:get/get.dart';
 class MetroLineCard extends StatelessWidget {
   final MetroOperation metroOperation;
 
@@ -23,39 +23,45 @@ class MetroLineCard extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
-            _buildSectionHeader('Operating Hours:'),
+            _buildSectionHeader('operatingHours'.tr),
             Text(
               metroOperation.operatingHours,
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 8),
-            _buildSectionHeader('Last Train Departures:'),
+            _buildSectionHeader('lastTrainDepartures'.tr),
             ...metroOperation.lastTrainDepartures
                 .map((departure) => Text(departure))
                 .toList(),
             SizedBox(height: 8),
-            _buildSectionHeader('Intersections:'),
+            _buildSectionHeader('intersections'.tr),
             ...metroOperation.intersections
                 .map((intersection) => Text(intersection))
                 .toList(),
             SizedBox(height: 8),
-            _buildSectionHeader('Trip Time:'),
+            _buildSectionHeader('tripTime'.tr),
             Text(metroOperation.tripTime, style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
-            _buildSectionHeader('Headway:'),
+            _buildSectionHeader('headway'.tr),
             Text(metroOperation.headway, style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
-            _buildSectionHeader('Train Fleet Size:'),
+            _buildSectionHeader('trainFleetSize'.tr),
             Text(
-              '${metroOperation.trainFleetSize} trains (${metroOperation.trainUnits} units each)',
+              '${metroOperation.trainFleetSize} ${'trains'.tr} (${metroOperation.trainUnits} ${'unitsEach'.tr})',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 8),
-            _buildSectionHeader('Maximum Speed:'),
-            Text('${metroOperation.maximumSpeed} km/h', style: TextStyle(fontSize: 16)),
+            _buildSectionHeader('maximumSpeed'.tr),
+            Text(
+                '${metroOperation.maximumSpeed} ${'kmPerHour'.tr}',
+                style: TextStyle(fontSize: 16)
+            ),
             SizedBox(height: 8),
-            _buildSectionHeader('Design Capacity:'),
-            Text('${metroOperation.designCapacity} passengers/train', style: TextStyle(fontSize: 16)),
+            _buildSectionHeader('designCapacity'.tr),
+            Text(
+                '${metroOperation.designCapacity} ${'passengersPerTrain'.tr}',
+                style: TextStyle(fontSize: 16)
+            ),
           ],
         ),
       ),
@@ -69,3 +75,4 @@ class MetroLineCard extends StatelessWidget {
     );
   }
 }
+

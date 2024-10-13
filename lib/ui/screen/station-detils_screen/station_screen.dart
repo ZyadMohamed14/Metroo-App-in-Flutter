@@ -3,6 +3,7 @@ import 'package:metroappinflutter/ui/shared_widgets/app_bar.dart';
 
 import '../../../domain/model/station.dart';
 import 'widget/stattion_item.dart';
+import 'package:get/get.dart';
 
 class StationDetailsScreen extends StatelessWidget {
   final List<Station> stations;
@@ -12,12 +13,11 @@ class StationDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MetroAppBar(title: 'Route Details',),
+      appBar: MetroAppBar(title: 'route_details'.tr,),
       body: ListView.builder(
         itemCount: stations.length,
         itemBuilder: (context, index) {
           final station = stations[index];
-           print('ziko ${station.path}');
           return StationItem(station: station); // Else, display StationItem1
         },
       ),

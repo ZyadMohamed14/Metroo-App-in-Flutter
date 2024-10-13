@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:metroappinflutter/ui/screen/history_screen/history_page.dart';
 import 'package:metroappinflutter/ui/screen/service_screen/service_screen.dart';
 import 'package:metroappinflutter/ui/screen/metroo_screen/metroo_screen.dart';
-
+import 'package:get/get.dart';
 
 class DashBoardScreen extends StatefulWidget {
   @override
@@ -20,6 +20,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
 
@@ -34,18 +35,19 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               _currentIndex = index; // Update active tab
             });
           },
-          items: const [
+          items:  [
+
             BottomNavigationBarItem(
               icon: Icon(Icons.home,),
-              label: 'Home',
+              label: 'home'.tr,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.train),
-              label: 'Services',
+              label: 'services'.tr,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.history),
-              label: 'History',
+              label: 'history'.tr,
             ),
 
           ],

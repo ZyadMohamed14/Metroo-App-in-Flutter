@@ -1,6 +1,6 @@
 // Define a class to handle the Metro Pricing Bottom Sheet
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 class MetroPricingBottomSheet extends StatefulWidget {
   @override
   _MetroPricingBottomSheetState createState() => _MetroPricingBottomSheetState();
@@ -22,9 +22,7 @@ class _MetroPricingBottomSheetState extends State<MetroPricingBottomSheet> {
       pricePerTicket = 8;
     }
 
-    // Update the number of tickets based on the number of stations
     numberOfTickets = numberOfStations; // Assuming one ticket per station
-
   }
 
   @override
@@ -35,12 +33,12 @@ class _MetroPricingBottomSheetState extends State<MetroPricingBottomSheet> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Metro Ticket Pricing',
+            'metroTicketPricing'.tr,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16),
           Text(
-            'Enter the number of stations:',
+            'enterNumberOfStations'.tr,
             style: TextStyle(fontSize: 18),
           ),
           SizedBox(height: 8),
@@ -49,29 +47,29 @@ class _MetroPricingBottomSheetState extends State<MetroPricingBottomSheet> {
             onChanged: (value) {
               if (value.isNotEmpty) {
                 numberOfStations = int.parse(value);
-                updatePrice(); // Update price when the number of stations changes
-                setState(() {}); // Update the UI
-              }else{
-                numberOfStations=1;
-                updatePrice(); // Update price when the number of stations changes
-                setState(() {}); // Update the UI
+                updatePrice();
+                setState(() {});
+              } else {
+                numberOfStations = 1;
+                updatePrice();
+                setState(() {});
               }
             },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Number of Stations',
+              hintText: 'numberOfStationsHint'.tr,
             ),
           ),
           SizedBox(height: 16),
           _buildPricingInfo(),
           SizedBox(height: 16),
           Text(
-            'Number of Tickets: $numberOfTickets',
+            '${'numberOfTickets'.tr}: $numberOfTickets',
             style: TextStyle(fontSize: 20),
           ),
           SizedBox(height: 16),
           Text(
-            'Total Price: ${pricePerTicket} pounds',
+            '${'totalPrice'.tr}: $pricePerTicket ${'pounds'.tr}',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
@@ -83,10 +81,10 @@ class _MetroPricingBottomSheetState extends State<MetroPricingBottomSheet> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('- More than 23 stations: 20 pounds.'),
-        Text('- From 17 to 23 stations: 15 pounds .'),
-        Text('- From 10 to 16 stations: 10 pounds .'),
-        Text('- Metro ticket price from one station to 9 stations: 8 pounds .'),
+        Text('- ${'pricingInfoMoreThan23'.tr}'),
+        Text('- ${'pricingInfo17To23'.tr}'),
+        Text('- ${'pricingInfo10To16'.tr}'),
+        Text('- ${'pricingInfo1To9'.tr}'),
       ],
     );
   }

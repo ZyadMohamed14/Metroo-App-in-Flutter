@@ -1,29 +1,66 @@
 import 'cario_lines.dart';
+import 'package:get/get.dart';
 
 class MetroApp {
-  List<String> _metroLine1;
-  List<String> _metroLine2;
-  List<String> _metroLine3;
-  List<String> _cairoKitKateBranch;
+  // Define your metro lines here
+  late final List<String> _metroLine1;
+  late final List<String> _metroLine2;
+  late final List<String> _metroLine3;
+  late final List<String> _cairoKitKateBranch;
   List<List<String>> _routes;
   StringBuffer _directionForFirstRoute;
   StringBuffer _directionForSecondRoute;
-  String _direction; // For single route // For single route
+  String _direction; // For single route
   String start, end;
   String transtionStation1;
+  List<String> transList1;
+  List<String> transList2;
+  final String currentLanguage;
 
+  // variable for translate
+  String andChangeDirectionAt = 'and_change_direction_at'.tr;
+  String changeDirectionTo = 'change_direction_to'.tr;
+  String takeDirectionTo = 'take_direction_to'.tr;
+  String thenTakeDirectionTo = 'then_take_direction_to'.tr;
+  String youAreAt = 'you_are_at'.tr;
+  String sadat = 'sadat'.tr;
+  String nasser = 'nasser'.tr;
+  String cairoUniversity = 'cairo_university'.tr;
+  String elmounib = 'el_mounib'.tr;
+  String attaba = 'attaba'.tr;
+  String shobraElKheima = 'shobra_el_kheima'.tr;
+  String elMarg = 'el_marg'.tr;
+  String helwan = 'helwan'.tr;
+  String kitkat = 'kitkat'.tr;
+  String adlyMansour = 'adly_mansour'.tr;
+  String roadElFargCorr = 'road_el_farg_corr'.tr;
 
   MetroApp(this.start, this.end)
-      : _metroLine1 = CairoLines.cairoLine1(),
-        _metroLine2 = CairoLines.cairoLine2(),
-        _metroLine3 = CairoLines.cairoLine3(),
-        _cairoKitKateBranch = CairoLines.kitKatCairoUniversityLine,
+      : currentLanguage = Get.locale!.languageCode,
         _routes = [],
+        transList1 = [],
+        transList2 = [],
         _directionForFirstRoute = StringBuffer(),
         _directionForSecondRoute = StringBuffer(),
         _direction = '',
-        transtionStation1 = "";
+        transtionStation1 = "" {
+    // Initialize metro lines based on the current language
+    _metroLine1 = currentLanguage == 'ar'
+        ? CairoLines.cairoLine1Ar() // Arabic metro line 1
+        : CairoLines.cairoLine1(); // English metro line 1
 
+    _metroLine2 = currentLanguage == 'ar'
+        ? CairoLines.cairoLine2Ar() // Arabic metro line 2
+        : CairoLines.cairoLine2(); // English metro line 2
+
+    _metroLine3 = currentLanguage == 'ar'
+        ? CairoLines.cairoLine3Ar() // Arabic metro line 3
+        : CairoLines.cairoLine3(); // English metro line 3
+
+    _cairoKitKateBranch = currentLanguage == 'ar'
+        ? CairoLines.kitKatCairoUniversityLineAr // Arabic metro line 3
+        : CairoLines.kitKatCairoUniversityLine;
+  }
 
   String getDirection() {
     return _direction;
@@ -97,9 +134,9 @@ class MetroApp {
 
     if (startIndex < endIndex) {
       subListPath = line.sublist(startIndex, endIndex + 1);
-      _direction = "Take Direction to ${line.last}";
+      _direction = "${'take_direction_to'.tr} ${line.last}";
     } else {
-      _direction = "Take Direction to ${line.first}";
+      _direction = "${'take_direction_to'.tr} ${line.first}";
       subListPath = line.sublist(endIndex, startIndex + 1);
       subListPath = subListPath.reversed.toList();
     }
@@ -138,19 +175,20 @@ class MetroApp {
   void _searchRoutesFromCairoKitKateBranchToLine2() {
     final startIndex = _cairoKitKateBranch.indexOf(start);
     final endIndex = _metroLine2.indexOf(end);
-    final attabaIndexAtLine2 = _metroLine2.indexOf('Attaba');
-    final cairoIndexAtLine2 = _metroLine2.indexOf('CairoUniversity');
-    final kitKateIndexAtCairoBranch = _cairoKitKateBranch.indexOf('KitKate');
+    final attabaIndexAtLine2 = _metroLine2.indexOf('attaba'.tr);
+    final cairoIndexAtLine2 = _metroLine2.indexOf('cairo_university'.tr);
+    final kitKateIndexAtCairoBranch = _cairoKitKateBranch.indexOf('kitkat'.tr);
     final cairoUniversityIndexAtCairoBranch =
-        _cairoKitKateBranch.indexOf('CairoUniversity');
-    final attabaIndexAtLine3 = _metroLine3.indexOf('Attaba');
-    final kitKateIndexAtLine3 = _metroLine3.indexOf('KitKate');
+        _cairoKitKateBranch.indexOf('cairo_university'.tr);
+    final attabaIndexAtLine3 = _metroLine3.indexOf('attaba'.tr);
+    final kitKateIndexAtLine3 = _metroLine3.indexOf('kitkat'.tr);
     final List<String> attabaLine = [];
     final List<String> cairoLine = [];
     List<String> subLine = [];
 
     // Option 1: Change at Attaba
-    _directionForFirstRoute.write('Change Direction to KitKate ');
+    _directionForFirstRoute
+        .write('${'change_direction_to'.tr}  ${'kitkat'.tr} ');
 
     subLine = _cairoKitKateBranch
         .sublist(kitKateIndexAtCairoBranch, startIndex + 1)
@@ -162,10 +200,10 @@ class MetroApp {
     attabaLine.addAll(
         _metroLine3.sublist(kitKateIndexAtLine3 + 1, attabaIndexAtLine3));
     _directionForFirstRoute.write(
-        'Then Take Direction to Adly Mansour and Change Direction at Attaba ');
+        '${'then_take_direction_to'.tr} ${'adly_mansour'.tr} ${'and_change_direction_at'.tr} ${'attaba'.tr} ');
     if (endIndex < attabaIndexAtLine2) {
       _directionForFirstRoute
-          .write('Then Take Direction to Shobra El-Kheima  ');
+          .write('${'then_take_direction_to'.tr} ${'shobra_el_kheima'.tr} ');
       subLine = _metroLine2
           .sublist(endIndex, attabaIndexAtLine2 + 1)
           .reversed
@@ -173,22 +211,26 @@ class MetroApp {
       attabaLine.addAll(subLine);
       subLine.clear();
     } else {
-      _directionForFirstRoute.write('Then Take Direction to El-Mounib  ');
+      _directionForFirstRoute
+          .write('${'then_take_direction_to'.tr} ${'el_mounib'.tr} ');
       attabaLine.addAll(_metroLine2.sublist(attabaIndexAtLine2, endIndex + 1));
     }
 
     // Option 2: Change at Cairo University
-    _directionForSecondRoute.write('Change Direction to CairoUniversity ');
+    _directionForSecondRoute
+        .write('${'change_direction_to'.tr} ${'cairo_university'.tr} ');
     cairoLine.addAll(_cairoKitKateBranch.sublist(
         startIndex, cairoUniversityIndexAtCairoBranch + 1));
     if (endIndex < cairoIndexAtLine2) {
-      _directionForSecondRoute.write('Then Take Direction to Shobra El-Kheima');
+      _directionForSecondRoute
+          .write('${'then_take_direction_to'.tr} ${'shobra_el_kheima'.tr} ');
       subLine =
           _metroLine2.sublist(endIndex, cairoIndexAtLine2).reversed.toList();
       cairoLine.addAll(subLine);
       subLine.clear();
     } else {
-      _directionForSecondRoute.write('Then Take Direction to El-Mounib');
+      _directionForSecondRoute
+          .write('${'then_take_direction_to'.tr} ${'el_mounib'.tr} ');
       cairoLine
           .addAll(_metroLine2.sublist(cairoIndexAtLine2 + 1, endIndex + 1));
     }
@@ -200,8 +242,8 @@ class MetroApp {
   void _searchRoutesFromLine2ToCairoKitKateBranch() {
     final startIndex = _metroLine2.indexOf(start);
     final endIndex = _cairoKitKateBranch.indexOf(end);
-    final attabaIndexAtLine2 = _metroLine2.indexOf('Attaba');
-    final cairoIndexAtLine2 = _metroLine2.indexOf('CairoUniversity');
+    final attabaIndexAtLine2 = _metroLine2.indexOf('attaba'.tr);
+    final cairoIndexAtLine2 = _metroLine2.indexOf('cairo_university'.tr);
     final List<String> attabaLine = [];
     final List<String> cairoLine = [];
     List<String> subLine = [];
@@ -209,9 +251,9 @@ class MetroApp {
     // Operations on Line 2
     if (startIndex > attabaIndexAtLine2 && startIndex > cairoIndexAtLine2) {
       _directionForFirstRoute.write(
-          'Take Direction to Shobra El-Kheima and Change Direction at Attaba ');
+          '${'take_direction_to'.tr} ${'shobra_el_kheima'.tr} ${'and_change_direction_at'.tr} ${'attaba'.tr} ');
       _directionForSecondRoute.write(
-          'Take Direction to Shobra El-Kheima and Change Direction at CairoUniversity ');
+          '${'take_direction_to'.tr} ${'shobra_el_kheima'.tr} ${'and_change_direction_at'.tr} ${'cairo_university'.tr} ');
       subLine = _metroLine2
           .sublist(attabaIndexAtLine2 + 1, startIndex + 1)
           .reversed
@@ -227,17 +269,17 @@ class MetroApp {
     } else if (startIndex < attabaIndexAtLine2 &&
         startIndex < cairoIndexAtLine2) {
       _directionForFirstRoute.write(
-          'Take Direction to El-Mounib and Change Direction at Attaba ');
+          '${'take_direction'.tr} ${'el_mounib'.tr} ${'and_change_direction_at'.tr} ${'attaba'.tr} ');
       _directionForSecondRoute.write(
-          'Take Direction to El-Mounib and Change Direction at CairoUniversity ');
+          '${'take_direction'.tr} ${'el_mounib'.tr} ${'and_change_direction_at'.tr} ${'cairo_university'.tr}');
       attabaLine.addAll(_metroLine2.sublist(startIndex, attabaIndexAtLine2));
       cairoLine.addAll(_metroLine2.sublist(startIndex, cairoIndexAtLine2));
     } else if (startIndex > attabaIndexAtLine2 &&
         startIndex < cairoIndexAtLine2) {
       _directionForFirstRoute.write(
-          'Take Direction to ShobraEl-Kheima and Change Direction at Attaba ');
+          '${'take_direction'.tr} ${'shobra_el_kheima'.tr} ${'and_change_direction_at'.tr} ${'attaba'.tr} ');
       _directionForSecondRoute.write(
-          'Take Direction to El-Mounib and Change Direction at CairoUniversity ');
+          '${'take_direction'.tr} ${'el_mounib'.tr} ${'and_change_direction_at'.tr} ${'cairo_university'.tr}');
       subLine = _metroLine2
           .sublist(attabaIndexAtLine2 + 1, startIndex)
           .reversed
@@ -246,8 +288,9 @@ class MetroApp {
       subLine.clear();
       cairoLine.addAll(_metroLine2.sublist(startIndex, cairoIndexAtLine2));
     } else {
-      _directionForFirstRoute.write('You are At Attaba');
-      _directionForSecondRoute.write('You are At CairoUniversity');
+      _directionForFirstRoute.write('${'you_are_at'.tr} ${'attaba'.tr}');
+      _directionForSecondRoute
+          .write('${'you_are_at'.tr} ${'cairo_university'.tr}');
     }
 
     // Operations on Line 3 with Attaba line
@@ -280,11 +323,12 @@ class MetroApp {
     _routes.add(cairoLine);
   }
 
+  ///trans by chat
   void _searchRoutesFromCairoKitKateBranchToLine1() {
     final startIndex = _cairoKitKateBranch.indexOf(start);
     final cairoIndexAtKitKatCairoUniversityBranch =
-        _cairoKitKateBranch.indexOf("CairoUniversity");
-    final kitKateIndexAtCairoBranch = _cairoKitKateBranch.indexOf("KitKate");
+        _cairoKitKateBranch.indexOf('cairo_university'.tr);
+    final kitKateIndexAtCairoBranch = _cairoKitKateBranch.indexOf('kitkat'.tr);
 
     final List<String> nasserLine = [];
     final List<String> sadatLine = [];
@@ -301,11 +345,12 @@ class MetroApp {
       sadatLine.addAll(subLine);
       subLine.clear();
     }
-    _directionForSecondRoute.write("Change Direction at CairoUniversity ");
+    _directionForSecondRoute
+        .write('${'change_direction_at'.tr} ${'cairo_university'.tr} ');
 
     // Operations at Line 2 for Sadat route
-    final sadatIndexAtLine2 = _metroLine2.indexOf("Sadat");
-    final cairoIndexAtLine2 = _metroLine2.indexOf("CairoUniversity");
+    final sadatIndexAtLine2 = _metroLine2.indexOf('sadat'.tr);
+    final cairoIndexAtLine2 = _metroLine2.indexOf('cairo_university'.tr);
     if (cairoIndexAtLine2 < sadatIndexAtLine2) {
       sadatLine.addAll(
           _metroLine2.sublist(cairoIndexAtLine2 + 1, sadatIndexAtLine2 + 1));
@@ -316,69 +361,31 @@ class MetroApp {
       subLine.clear();
     }
     _directionForSecondRoute.write(
-        "then Take Direction to Shobra El-Kheima and Change Direction at Sadat   ");
+        '${'then_take_direction_to'.tr} ${'shobra_el_kheima'.tr} ${'and_change_direction_at'.tr} ${'sadat'.tr} ');
 
     // Operations at Line 1 for Sadat route
-    final sadatIndexAtLine1 = _metroLine1.indexOf("Sadat");
+    final sadatIndexAtLine1 = _metroLine1.indexOf('sadat'.tr);
     final endIndexAtLine1 = _metroLine1.indexOf(end);
     if (endIndexAtLine1 > sadatIndexAtLine1) {
       sadatLine
           .addAll(_metroLine1.sublist(sadatIndexAtLine1, endIndexAtLine1 + 1));
-      _directionForSecondRoute.write("then Take Direction to El-Marg ");
+      _directionForSecondRoute
+          .write('${'then_take_direction_to'.tr} ${'el_marg'.tr} ');
     } else if (endIndexAtLine1 < sadatIndexAtLine1) {
-      _directionForSecondRoute.write("then Take Direction to Helwan ");
+      _directionForSecondRoute
+          .write('${'then_take_direction_to'.tr} ${'helwan'.tr} ');
       subLine.addAll(
           _metroLine1.sublist(endIndexAtLine1, sadatIndexAtLine1 + 1).reversed);
       sadatLine.addAll(subLine);
       subLine.clear();
     }
-
-    // Operations at KitKat Cairo University line for Nasser route
-    _directionForFirstRoute.write("Change Direction at KitKate ");
-    if (startIndex < kitKateIndexAtCairoBranch) {
-      nasserLine.addAll(_cairoKitKateBranch.sublist(
-          startIndex, kitKateIndexAtCairoBranch + 1));
-    } else if (startIndex > kitKateIndexAtCairoBranch) {
-      subLine.addAll(_cairoKitKateBranch
-          .sublist(kitKateIndexAtCairoBranch, startIndex + 1)
-          .reversed);
-      nasserLine.addAll(subLine);
-      subLine.clear();
-    }
-
-    // Operations at Line 3 for Nasser route
-    _directionForFirstRoute.write(
-        "then Take Direction to Adly Mansour and Change Direction at Nasser   ");
-    final nasserIndexAtLine3 = _metroLine3.indexOf("Nasser");
-    final kitKateIndexAtLine3 = _metroLine3.indexOf("KitKate");
-
-    nasserLine.addAll(
-        _metroLine3.sublist(kitKateIndexAtLine3 + 1, nasserIndexAtLine3 + 1));
-
-    // Operations at Line 1 for Nasser route
-    final nasserIndexAtLine1 = _metroLine1.indexOf("Nasser");
-
-    if (endIndexAtLine1 > nasserIndexAtLine1) {
-      _directionForFirstRoute.write("then Take Direction to El-Marg ");
-      nasserLine
-          .addAll(_metroLine1.sublist(nasserIndexAtLine1, endIndexAtLine1 + 1));
-    } else if (endIndexAtLine1 < nasserIndexAtLine1) {
-      _directionForFirstRoute.write("then Take Direction to Helwan ");
-      subLine.addAll(_metroLine1
-          .sublist(endIndexAtLine1, nasserIndexAtLine1 + 1)
-          .reversed);
-      nasserLine.addAll(subLine);
-      subLine.clear();
-    }
-
-    _routes.add(nasserLine);
-    _routes.add(sadatLine);
   }
 
+  ///trans by chat
   void _searchRoutesFromLine1ToCairoKitKateBranch() {
     int startIndex = _metroLine1.indexOf(start);
-    int nasserIndexAtLine1 = _metroLine1.indexOf("Nasser");
-    int sadatIndexAtLine1 = _metroLine1.indexOf("Sadat");
+    int nasserIndexAtLine1 = _metroLine1.indexOf('nasser'.tr);
+    int sadatIndexAtLine1 = _metroLine1.indexOf('sadat'.tr);
 
     List<String> nasserLine = [];
     List<String> sadatLine = [];
@@ -387,17 +394,17 @@ class MetroApp {
     // Operations at Line 1
     if (startIndex < nasserIndexAtLine1 && startIndex < sadatIndexAtLine1) {
       _directionForFirstRoute.write(
-          "Take Direction to El-Marg and Change Direction at Nasser ");
-      _directionForSecondRoute
-          .write("Take Direction to El-Marg and Change Direction at Sadat ");
+          '${'take_direction_to'.tr} ${'el_marg'.tr} ${'and_change_direction_at'.tr} ${'nasser'.tr} ');
+      _directionForSecondRoute.write(
+          '${'take_direction_to'.tr} ${'el_marg'.tr} ${'and_change_direction_at'.tr} ${'sadat'.tr} ');
       nasserLine.addAll(_metroLine1.sublist(startIndex, nasserIndexAtLine1));
       sadatLine.addAll(_metroLine1.sublist(startIndex, sadatIndexAtLine1));
     } else if (startIndex > nasserIndexAtLine1 &&
         startIndex > sadatIndexAtLine1) {
-      _directionForFirstRoute
-          .write("Take Direction to Helwan and Change Direction at Nasser ");
-      _directionForSecondRoute
-          .write("Take Direction to Helwan and Change Direction at Sadat ");
+      _directionForFirstRoute.write(
+          '${'take_direction_to'.tr} ${'helwan'.tr} ${'and_change_direction_at'.tr} ${'nasser'.tr} ');
+      _directionForSecondRoute.write(
+          '${'take_direction_to'.tr} ${'helwan'.tr} ${'and_change_direction_at'.tr} ${'sadat'.tr} ');
       subLine.addAll(_metroLine1.sublist(sadatIndexAtLine1 + 1, startIndex));
       subLine = subLine.reversed.toList();
       sadatLine.addAll(subLine);
@@ -407,27 +414,27 @@ class MetroApp {
       nasserLine.addAll(subLine);
     } else {
       if (startIndex == nasserIndexAtLine1) {
-        _directionForFirstRoute.write("You are At Nasser");
-        _directionForSecondRoute.write("You are At Sadat");
+        _directionForFirstRoute.write('${'you_are_at'.tr} ${'nasser'.tr}');
+        _directionForSecondRoute.write('${'you_are_at'.tr} ${'sadat'.tr}');
       } else {
-        _directionForFirstRoute.write("You are At $start");
+        _directionForFirstRoute.write('${'you_are_at'.tr} $start');
         nasserLine
             .addAll(_metroLine1.sublist(sadatIndexAtLine1, nasserIndexAtLine1));
-        _directionForSecondRoute.write("You are At Sadat");
+        _directionForSecondRoute.write('${'you_are_at'.tr} ${'sadat'.tr}');
       }
     }
 
     // Operations at Line 2 for Sadat route
-    int sadatIndexAtLine2 = _metroLine2.indexOf("Sadat");
-    int cairoIndexAtLine2 = _metroLine2.indexOf("CairoUniversity");
+    int sadatIndexAtLine2 = _metroLine2.indexOf('Sadat'.tr);
+    int cairoIndexAtLine2 = _metroLine2.indexOf('CairoUniversity'.tr);
     _directionForSecondRoute.write(
-        "Then Take Direction to EL-Mounib and Change Direction at CairoUniversity ");
+        '${'then_take_direction_to'.tr} ${'el_mounib'.tr} ${'and_change_direction_at'.tr} ${'cairo_university'.tr} ');
     sadatLine.addAll(_metroLine2.sublist(sadatIndexAtLine2, cairoIndexAtLine2));
 
     // Operations at Cairo KitKate branch for Sadat route
     int endIndexAtCairoKitKateBranch = _cairoKitKateBranch.indexOf(end);
     int cairoIndexAtCairoKitKateBranch =
-        _cairoKitKateBranch.indexOf("CairoUniversity");
+        _cairoKitKateBranch.indexOf('CairoUniversity'.tr);
     subLine.addAll(_cairoKitKateBranch.sublist(
         cairoIndexAtCairoKitKateBranch, cairoIndexAtCairoKitKateBranch + 1));
     subLine = subLine.reversed.toList();
@@ -436,16 +443,16 @@ class MetroApp {
 
     // Operations at Line 3 for Nasser route
     _directionForFirstRoute.write(
-        "Take Direction to Road El FargCorr and Change Direction at KitKate ");
-    int nasserIndexAtLine3 = _metroLine3.indexOf("Nasser");
-    int kitKateIndexAtLine3 = _metroLine3.indexOf("KitKate");
+        '${'take_direction_to'.tr} ${'road_el_fargcorr'.tr} ${'and_change_direction_at'.tr} ${'kitkate'.tr} ');
+    int nasserIndexAtLine3 = _metroLine3.indexOf('Nasser'.tr);
+    int kitKateIndexAtLine3 = _metroLine3.indexOf('KitKate'.tr);
     subLine.addAll(
         _metroLine3.sublist(kitKateIndexAtLine3 + 1, nasserIndexAtLine3 + 1));
     subLine = subLine.reversed.toList();
     nasserLine.addAll(subLine);
     subLine.clear();
     int kitKateIndexAtCairoKitKateBranch =
-        _cairoKitKateBranch.indexOf("KitKate");
+        _cairoKitKateBranch.indexOf('KitKate'.tr);
 
     // Operations at Cairo KitKate branch for Nasser route
     nasserLine.addAll(_cairoKitKateBranch.sublist(
@@ -455,10 +462,11 @@ class MetroApp {
     _routes.add(sadatLine);
   }
 
+  ///trans by me
   void _searchRoutesFromLine1ToLine3() {
     int startIndex = _metroLine1.indexOf(start);
-    int nasserIndexAtLine1 = _metroLine1.indexOf("Nasser");
-    int sadatIndexAtLine1 = _metroLine1.indexOf("Sadat");
+    int nasserIndexAtLine1 = _metroLine1.indexOf("nasser".tr);
+    int sadatIndexAtLine1 = _metroLine1.indexOf("sadat".tr);
     List<String> nasserLine = [];
     List<String> sadatLine = [];
     List<String> subLine = [];
@@ -466,17 +474,18 @@ class MetroApp {
     // Operations in Line 1
     if (startIndex < nasserIndexAtLine1 && startIndex < sadatIndexAtLine1) {
       _directionForFirstRoute.write(
-          "Take Direction to El-Marg and Change Direction at Nasser ");
+          "${'take_direction_to'.tr} ${'el_marg'.tr}${'and_change_direction_at'.tr} ${"nasser".tr} ");
       _directionForSecondRoute.write(
-          "Take Direction to El-Marg and Change Direction at Sadat Then Take Direction to El Mounib And Change Direction at CairoUniversity");
+          "${'take_direction_to'.tr} ${'el_marg'.tr}${'and_change_direction_at'.tr} ${"sadat".tr} "
+          "${'then_take_direction_to'.tr} ${'el_mounib'.tr} ${'and_change_direction_at'.tr} ${'cairo_university'.tr}");
       nasserLine.addAll(_metroLine1.sublist(startIndex, nasserIndexAtLine1));
       sadatLine.addAll(_metroLine1.sublist(startIndex, sadatIndexAtLine1));
     } else if (startIndex > nasserIndexAtLine1 &&
         startIndex > sadatIndexAtLine1) {
       _directionForFirstRoute
-          .write("Take Direction to Helwan and Change Direction at Nasser ");
+          .write("$takeDirectionTo $helwan $andChangeDirectionAt $nasser ");
       _directionForSecondRoute.write(
-          "Take Direction to Helwan and Change Direction at Sadat Then Take Direction to El Mounib And Change Direction at CairoUniversity");
+          "$takeDirectionTo $helwan$andChangeDirectionAt $sadat $thenTakeDirectionTo $elmounib$andChangeDirectionAt$cairoUniversity");
       subLine.addAll(_metroLine1.sublist(sadatIndexAtLine1 + 1, startIndex));
       subLine = subLine.reversed.toList();
       sadatLine.addAll(subLine);
@@ -486,13 +495,13 @@ class MetroApp {
       nasserLine.addAll(subLine);
     } else {
       // You are at Sadat or Shohadaa
-      _directionForFirstRoute.write("You are At Nasser");
-      _directionForSecondRoute.write("You are At Sadat");
+      _directionForFirstRoute.write("$youAreAt $nasser");
+      _directionForSecondRoute.write("$youAreAt $sadat");
     }
 
     // Operations in Line 3
-    int sadatIndexAtLine2 = _metroLine2.indexOf("Sadat");
-    int cairoIndexAtLine2 = _metroLine2.indexOf("CairoUniversity");
+    int sadatIndexAtLine2 = _metroLine2.indexOf(sadat);
+    int cairoIndexAtLine2 = _metroLine2.indexOf(cairoUniversity);
     sadatLine.addAll(_metroLine2.sublist(sadatIndexAtLine2, cairoIndexAtLine2));
     subLine.addAll(_cairoKitKateBranch);
     subLine = subLine.reversed.toList();
@@ -500,19 +509,17 @@ class MetroApp {
     subLine.clear();
 
     int endIndex = _metroLine3.indexOf(end);
-    int nasserIndexAtLine3 = _metroLine3.indexOf("Nasser");
-    int kitKateIndex = _metroLine3.indexOf("KitKate");
+    int nasserIndexAtLine3 = _metroLine3.indexOf(nasser);
+    int kitKateIndex = _metroLine3.indexOf(kitkat);
 
     if (endIndex > nasserIndexAtLine3 && endIndex > kitKateIndex) {
-      _directionForFirstRoute.write(" And then Take Direction to Adly Mansour");
-      _directionForSecondRoute.write(" And then Take Direction to Adly Mansour");
+      _directionForFirstRoute.write(" $takeDirectionTo $adlyMansour");
+      _directionForSecondRoute.write(" $takeDirectionTo $adlyMansour");
       nasserLine.addAll(_metroLine3.sublist(nasserIndexAtLine3, endIndex + 1));
       sadatLine.addAll(_metroLine3.sublist(kitKateIndex + 1, endIndex + 1));
     } else if (endIndex < nasserIndexAtLine3 && endIndex < kitKateIndex) {
-      _directionForFirstRoute
-          .write(" And then Take Direction to Road El FargCorr");
-      _directionForSecondRoute
-          .write(" And then Take Direction to Road El FargCorr");
+      _directionForFirstRoute.write("$takeDirectionTo $roadElFargCorr");
+      _directionForSecondRoute.write("$takeDirectionTo $roadElFargCorr");
       subLine.addAll(_metroLine3.sublist(endIndex, nasserIndexAtLine3 + 1));
       subLine = subLine.reversed.toList();
       nasserLine.addAll(subLine);
@@ -522,17 +529,16 @@ class MetroApp {
       sadatLine.addAll(subLine);
       subLine.clear();
     } else if (endIndex > kitKateIndex && endIndex < nasserIndexAtLine3) {
-      _directionForFirstRoute.write("And then Take Direction to Adly Mansour");
-      _directionForSecondRoute
-          .write("And then Take Direction to Road El FargCorr");
+      _directionForFirstRoute.write("$takeDirectionTo $adlyMansour");
+      _directionForSecondRoute.write("$takeDirectionTo $roadElFargCorr");
       nasserLine.addAll(_metroLine3.sublist(endIndex, nasserIndexAtLine3 + 1));
       subLine.addAll(_metroLine3.sublist(kitKateIndex + 1, endIndex + 1));
       subLine = subLine.reversed.toList();
       sadatLine.addAll(subLine);
       subLine.clear();
     } else {
-      nasserLine.add("Nasser");
-      sadatLine.add("KitKate");
+      nasserLine.add(nasser);
+      sadatLine.add(kitkat);
     }
 
     _routes.add(nasserLine);
@@ -541,27 +547,31 @@ class MetroApp {
 
   void _searchRoutesFromLine3ToLine1() {
     int startIndex = _metroLine3.indexOf(start);
-    int nasserIndexAtLine3 = _metroLine3.indexOf("Nasser");
-    int kitKateIndex = _metroLine3.indexOf("KitKate");
+    int nasserIndexAtLine3 = _metroLine3.indexOf(nasser);
+    int kitKateIndex = _metroLine3.indexOf(kitkat);
     List<String> nasserLine = [];
     List<String> kitKateLine = [];
     List<String> subLine = [];
-    print('zikokoas${startIndex}');
-    print('zikokoas${nasserIndexAtLine3}');
-    print('zikokoas${kitKateIndex}');
+
     // Operations at Line 3
     if (startIndex < nasserIndexAtLine3 && startIndex < kitKateIndex) {
-      _directionForFirstRoute.write(
-          "Take Direction to Adly Mansour and Change Direction at Nasser ");
+      _directionForFirstRoute
+          .write("$takeDirectionTo $adlyMansour $andChangeDirectionAt $nasser");
+      transList1.add(nasser);
       _directionForSecondRoute.write(
-          "Take Direction to Adly Mansour and Change Direction at KitKate And Change Direction at CairoUniversity And Take Direction to ShobraEl-Kheima");
+          "$takeDirectionTo $adlyMansour $andChangeDirectionAt $kitkat $andChangeDirectionAt $cairoUniversity $takeDirectionTo $shobraElKheima");
+      transList2.add(kitkat);
+      transList2.add(cairoUniversity);
       nasserLine.addAll(_metroLine3.sublist(startIndex, nasserIndexAtLine3));
       kitKateLine.addAll(_metroLine3.sublist(startIndex, kitKateIndex));
     } else if (startIndex > nasserIndexAtLine3 && startIndex > kitKateIndex) {
       _directionForFirstRoute.write(
-          "Take Direction to Road El FargCorr and Change Direction at Nasser ");
+          "$takeDirectionTo $roadElFargCorr $andChangeDirectionAt $nasser ");
+      transList1.add(nasser);
       _directionForSecondRoute.write(
-          "Take Direction to Road El FargCorr and Change Direction at KitKate And Change Direction at CairoUniversity And Take Direction to ShobraEl-Kheima");
+          "$takeDirectionTo $roadElFargCorr $andChangeDirectionAt $kitkat $andChangeDirectionAt $cairoUniversity $takeDirectionTo $shobraElKheima");
+      transList2.add(kitkat);
+      transList2.add(cairoUniversity);
       subLine.addAll(_metroLine3.sublist(kitKateIndex + 1, startIndex + 1));
       subLine = subLine.reversed.toList();
       kitKateLine.addAll(subLine);
@@ -572,13 +582,13 @@ class MetroApp {
       nasserLine.addAll(subLine);
     } else {
       // You are at Nasser or KitKate
-      _directionForFirstRoute.write("You are At Nasser");
-      _directionForSecondRoute.write("You are At KitKate");
+      _directionForFirstRoute.write("$youAreAt $nasser");
+      _directionForSecondRoute.write("$youAreAt $kitkat");
     }
 
     // Operations at Line 2
-    int sadatIndexAtLine2 = _metroLine2.indexOf("Sadat");
-    int cairoIndexAtLine2 = _metroLine2.indexOf("CairoUniversity");
+    int sadatIndexAtLine2 = _metroLine2.indexOf(sadat);
+    int cairoIndexAtLine2 = _metroLine2.indexOf(cairoUniversity);
     kitKateLine
         .addAll(_metroLine2.sublist(sadatIndexAtLine2, cairoIndexAtLine2));
     subLine.addAll(_cairoKitKateBranch);
@@ -588,17 +598,17 @@ class MetroApp {
 
     // Operations at Line 1
     int endIndex = _metroLine1.indexOf(end);
-    int nasserIndexAtLine1 = _metroLine1.indexOf("Nasser");
-    int sadatIndexAtLine1 = _metroLine1.indexOf("Sadat");
+    int nasserIndexAtLine1 = _metroLine1.indexOf(nasser);
+    int sadatIndexAtLine1 = _metroLine1.indexOf(sadat);
     if (endIndex > nasserIndexAtLine1 && endIndex > sadatIndexAtLine1) {
-      _directionForFirstRoute.write("And then Take Direction to El-Marg");
-      _directionForSecondRoute.write("And then Take Direction to El-Marg");
+      _directionForFirstRoute.write("$thenTakeDirectionTo $elMarg");
+      _directionForSecondRoute.write("$thenTakeDirectionTo $elMarg");
       nasserLine.addAll(_metroLine1.sublist(nasserIndexAtLine1, endIndex + 1));
       kitKateLine
           .addAll(_metroLine1.sublist(sadatIndexAtLine1 + 1, endIndex + 1));
     } else if (endIndex < nasserIndexAtLine1 && endIndex < sadatIndexAtLine1) {
-      _directionForFirstRoute.write("And then Take Direction to Helwan");
-      _directionForSecondRoute.write("And then Take Direction to Helwan");
+      _directionForFirstRoute.write("$thenTakeDirectionTo $helwan");
+      _directionForSecondRoute.write("$thenTakeDirectionTo $helwan");
       subLine.addAll(_metroLine1.sublist(endIndex, nasserIndexAtLine1 + 1));
       subLine = subLine.reversed.toList();
       nasserLine.addAll(subLine);
@@ -608,19 +618,20 @@ class MetroApp {
       kitKateLine.addAll(subLine);
       subLine.clear();
     } else {
-      nasserLine.add("Nasser");
-      kitKateLine.add("KitKate");
+      nasserLine.add(nasser);
+      kitKateLine.add(kitkat);
     }
 
     _routes.add(nasserLine);
     _routes.add(kitKateLine);
   }
 
+  /// by chat
   void _searchRoutesFromLine2ToLine3() {
-    int attabaIndexAtLine2 = _metroLine2.indexOf('Attaba');
-    int cairoIndexAtLine2 = _metroLine2.indexOf('CairoUniversity');
-    int attabaIndexAtLine3 = _metroLine3.indexOf('Attaba');
-    int kitKateIndex = _metroLine3.indexOf('KitKate');
+    int attabaIndexAtLine2 = _metroLine2.indexOf(attaba);
+    int cairoIndexAtLine2 = _metroLine2.indexOf(cairoUniversity);
+    int attabaIndexAtLine3 = _metroLine3.indexOf(attaba);
+    int kitKateIndex = _metroLine3.indexOf(kitkat);
     int startIndex = _metroLine2.indexOf(start);
     int endIndex = _metroLine3.indexOf(end);
 
@@ -633,10 +644,10 @@ class MetroApp {
 
     // Operations at line 2
     if (startIndex < attabaIndexAtLine2 && startIndex < cairoIndexAtLine2) {
-      directionForFirstRoute.write(
-          "Take Direction to El-Mounib and Change Direction at El-Attaba\n");
+      directionForFirstRoute
+          .write("$takeDirectionTo $elmounib $andChangeDirectionAt $attaba\n");
       directionForSecondRoute.write(
-          "Take Direction to El-Mounib and Change Direction at CairoUniversity\nAnd Change Direction at KitKate");
+          "$takeDirectionTo $elmounib $andChangeDirectionAt $cairoUniversity\n$andChangeDirectionAt $kitkat");
       attabaLine.addAll(_metroLine2.sublist(startIndex, attabaIndexAtLine2));
       cairoLine.addAll(_metroLine2.sublist(startIndex, cairoIndexAtLine2));
       subLine.addAll(_cairoKitKateBranch);
@@ -646,9 +657,9 @@ class MetroApp {
     } else if (startIndex > attabaIndexAtLine2 &&
         startIndex > cairoIndexAtLine2) {
       directionForFirstRoute.write(
-          "Take Direction to ShobraEl-Kheima and Change Direction at El-Attaba\n");
+          "$takeDirectionTo $shobraElKheima $andChangeDirectionAt $attaba\n");
       directionForSecondRoute.write(
-          "Take Direction to ShobraEl-Kheima and Change Direction at CairoUniversity\nAnd Change Direction at KitKate");
+          "$takeDirectionTo $shobraElKheima $andChangeDirectionAt $cairoUniversity\n$andChangeDirectionAt $kitkat");
       subLine
           .addAll(_metroLine2.sublist(attabaIndexAtLine2 + 1, startIndex + 1));
       subLine = subLine.reversed.toList();
@@ -665,9 +676,9 @@ class MetroApp {
     } else if (startIndex > attabaIndexAtLine2 &&
         startIndex < cairoIndexAtLine2) {
       directionForFirstRoute.write(
-          "Take Direction to ShobraEl-Kheima and Change Direction at El-Attaba\n");
+          "$takeDirectionTo $shobraElKheima $andChangeDirectionAt $attaba\n");
       directionForSecondRoute.write(
-          "Take Direction to El-Mounib and Change Direction at CairoUniversity\nAnd Change Direction at KitKate");
+          "$takeDirectionTo $elmounib $andChangeDirectionAt $cairoUniversity\n$andChangeDirectionAt $kitkat");
       subLine
           .addAll(_metroLine2.sublist(attabaIndexAtLine2 + 1, startIndex + 1));
       subLine = subLine.reversed.toList();
@@ -679,21 +690,19 @@ class MetroApp {
       cairoLine.addAll(subLine);
       subLine.clear();
     } else {
-      directionForFirstRoute.write("You are At Attaba");
-      directionForSecondRoute.write("You are At CairoUniversity");
+      directionForFirstRoute.write("$youAreAt $attaba");
+      directionForSecondRoute.write("$youAreAt $cairoUniversity");
     }
 
     // Operations at line 3
     if (endIndex > attabaIndexAtLine3 && endIndex > kitKateIndex) {
-      directionForFirstRoute.write("And then Take Direction to Adly Mansour");
-      directionForSecondRoute.write("And then Take Direction to Adly Mansour");
+      directionForFirstRoute.write("$thenTakeDirectionTo $adlyMansour");
+      directionForSecondRoute.write("$thenTakeDirectionTo $adlyMansour");
       attabaLine.addAll(_metroLine3.sublist(attabaIndexAtLine3, endIndex + 1));
       cairoLine.addAll(_metroLine3.sublist(kitKateIndex + 1, endIndex + 1));
     } else if (endIndex < attabaIndexAtLine3 && endIndex < kitKateIndex) {
-      directionForFirstRoute
-          .write("And then Take Direction to Road El FargCorr");
-      directionForSecondRoute
-          .write("And then Take Direction to Road El FargCorr");
+      directionForFirstRoute.write("$thenTakeDirectionTo $roadElFargCorr");
+      directionForSecondRoute.write("$thenTakeDirectionTo $roadElFargCorr");
       subLine.addAll(_metroLine3.sublist(endIndex, attabaIndexAtLine3 + 1));
       subLine = subLine.reversed.toList();
       attabaLine.addAll(subLine);
@@ -703,23 +712,23 @@ class MetroApp {
       cairoLine.addAll(subLine);
       subLine.clear();
     } else if (endIndex > kitKateIndex && endIndex < attabaIndexAtLine3) {
-      directionForFirstRoute.write("And then Take Direction to Adly Mansour");
-      directionForSecondRoute
-          .write("And then Take Direction to Road El FargCorr");
+      directionForFirstRoute.write("$thenTakeDirectionTo $adlyMansour");
+      directionForSecondRoute.write("$thenTakeDirectionTo ${roadElFargCorr}");
       attabaLine.addAll(_metroLine3.sublist(endIndex, attabaIndexAtLine3 + 1));
       subLine.addAll(_metroLine3.sublist(kitKateIndex + 1, endIndex + 1));
       subLine = subLine.reversed.toList();
       cairoLine.addAll(subLine);
       subLine.clear();
     } else {
-      attabaLine.add("Attaba");
-      cairoLine.add("KitKate");
+      attabaLine.add(attaba);
+      cairoLine.add(kitkat);
     }
 
     _routes.add(attabaLine);
     _routes.add(cairoLine);
   }
 
+  /// by chat
   void _searchRoutesFromLine3ToLine2() {
     List<String> attabaLine = [];
     List<String> kitKateLine = [];
@@ -729,10 +738,10 @@ class MetroApp {
     StringBuffer directionForSecondRoute = StringBuffer();
 
     int startIndex = _metroLine3.indexOf(start);
-    int attabaIndexAtLine3 = _metroLine3.indexOf("Attaba");
-    int kitKateIndex = _metroLine3.indexOf("KitKate");
-    int attabaIndexAtLine2 = _metroLine2.indexOf("Attaba");
-    int cairoIndexAtLine2 = _metroLine2.indexOf("CairoUniversity");
+    int attabaIndexAtLine3 = _metroLine3.indexOf(attaba);
+    int kitKateIndex = _metroLine3.indexOf(kitkat);
+    int attabaIndexAtLine2 = _metroLine2.indexOf(attaba);
+    int cairoIndexAtLine2 = _metroLine2.indexOf(cairoUniversity);
     int endIndex = _metroLine2.indexOf(end);
 
     // Operations at Line 3
@@ -741,33 +750,33 @@ class MetroApp {
           .addAll(_metroLine3.sublist(startIndex, attabaIndexAtLine3 + 1));
       kitKateLine.addAll(_metroLine3.sublist(startIndex, kitKateIndex + 1));
       directionForFirstRoute.write(
-          "Take Direction to Adly Mansour and Change Direction at Attaba \n");
+          "$takeDirectionTo $adlyMansour $andChangeDirectionAt $attaba \n");
       directionForSecondRoute.write(
-          "Take Direction to Adly Mansour and Change Direction at KitKate \n");
+          "$takeDirectionTo $adlyMansour $andChangeDirectionAt $kitkat \n");
     } else if (startIndex > attabaIndexAtLine3 && startIndex > kitKateIndex) {
       attabaLine.addAll(
           _metroLine3.sublist(attabaIndexAtLine3 + 1, startIndex + 1).reversed);
       kitKateLine.addAll(
           _metroLine3.sublist(kitKateIndex + 1, startIndex + 1).reversed);
       directionForFirstRoute.write(
-          "Take Direction to Road El FargCorr and Change Direction at Attaba \n");
+          "$takeDirectionTo $roadElFargCorr $andChangeDirectionAt $attaba \n");
       directionForSecondRoute.write(
-          "Take Direction to Road El FargCorr and Change Direction at KitKate \n");
+          "$takeDirectionTo $roadElFargCorr $andChangeDirectionAt $kitkat \n");
     } else if (startIndex > kitKateIndex && startIndex < attabaIndexAtLine3) {
       attabaLine
           .addAll(_metroLine3.sublist(startIndex, attabaIndexAtLine3 + 1));
       kitKateLine.addAll(
           _metroLine3.sublist(kitKateIndex + 1, startIndex + 1).reversed);
       directionForFirstRoute.write(
-          "Take Direction to Adly Mansour and Change Direction at Attaba \n");
+          "$takeDirectionTo $adlyMansour $andChangeDirectionAt $attaba \n");
       directionForSecondRoute.write(
-          "Take Direction to Road El FargCorr and Change Direction at KitKate \n");
+          "$takeDirectionTo $roadElFargCorr $andChangeDirectionAt $kitkat \n");
     } else {
       // You are at Attaba or KitKate
       if (startIndex == attabaIndexAtLine3) {
-        directionForFirstRoute.write("You are at Attaba ");
+        directionForFirstRoute.write("$youAreAt $attaba ");
         directionForSecondRoute.write(
-            "Take Direction to Road El FargCorr and Change Direction at KitKate ");
+            "$takeDirectionTo $roadElFargCorr $andChangeDirectionAt $kitkat ");
         subLine.addAll(
             _metroLine3.sublist(kitKateIndex + 1, startIndex + 1).reversed);
         kitKateLine.addAll(subLine);
@@ -775,9 +784,9 @@ class MetroApp {
         kitKateLine.addAll(_cairoKitKateBranch);
       } else {
         directionForFirstRoute.write(
-            "Take Direction to Adly Mansour and Change Direction at Attaba ");
+            "$takeDirectionTo $adlyMansour $andChangeDirectionAt $attaba ");
         directionForSecondRoute.write(
-            "You are at KitKate, Then Change Direction at CairoUniversity\n");
+            "$youAreAt $kitkat, Then $andChangeDirectionAt $cairoUniversity\n");
         attabaLine
             .addAll(_metroLine3.sublist(kitKateIndex, attabaIndexAtLine3));
         kitKateLine.addAll(_cairoKitKateBranch);
@@ -794,35 +803,33 @@ class MetroApp {
           _metroLine2.sublist(endIndex, cairoIndexAtLine2 + 1).reversed);
       kitKateLine.addAll(subLine);
       subLine.clear();
-      directionForFirstRoute
-          .write("And Then Take Direction to ShobraEl-Kheima ");
-      directionForSecondRoute
-          .write("And Then Take Direction to ShobraEl-Kheima ");
+      directionForFirstRoute.write("$andChangeDirectionAt $shobraElKheima ");
+      directionForSecondRoute.write("$andChangeDirectionAt $shobraElKheima ");
     } else if (endIndex > attabaIndexAtLine2 && endIndex > cairoIndexAtLine2) {
       attabaLine.addAll(_metroLine2.sublist(attabaIndexAtLine2, endIndex + 1));
       kitKateLine
           .addAll(_metroLine2.sublist(cairoIndexAtLine2 + 1, endIndex + 1));
-      directionForFirstRoute.write("And Then Take Direction to El-Mounib ");
-      directionForSecondRoute.write("And Then Take Direction to El-Mounib ");
+      directionForFirstRoute.write("$andChangeDirectionAt $elmounib ");
+      directionForSecondRoute.write("$andChangeDirectionAt $elmounib ");
     } else if (endIndex < cairoIndexAtLine2 && endIndex > attabaIndexAtLine2) {
       subLine.addAll(
           _metroLine2.sublist(endIndex, cairoIndexAtLine2 + 1).reversed);
       kitKateLine.addAll(subLine);
       subLine.clear();
       attabaLine.addAll(_metroLine2.sublist(attabaIndexAtLine2, endIndex + 1));
-      directionForFirstRoute
-          .write("And Then Take Direction to ShobraEl-Kheima ");
-      directionForSecondRoute.write("And Then Take Direction to El-Mounib ");
+      directionForFirstRoute.write("$andChangeDirectionAt $shobraElKheima ");
+      directionForSecondRoute.write("$andChangeDirectionAt $elmounib ");
     } else {
       // You are at Attaba or CairoUniversity
-      attabaLine.add("Attaba");
-      kitKateLine.add("CairoUniversity");
+      attabaLine.add(attaba);
+      kitKateLine.add(cairoUniversity);
     }
 
     _routes.add(attabaLine);
     _routes.add(kitKateLine);
   }
 
+  /// by chat
   void _searchRoutesFromLine1ToLine2() {
     List<String> sadatLine = [];
     List<String> shohadaaLine = [];
@@ -831,10 +838,12 @@ class MetroApp {
     StringBuffer directionForSecondRoute = StringBuffer();
 
     int startIndex = _metroLine1.indexOf(start);
-    int sadatIndexAtLine1 = _metroLine1.indexOf("Sadat");
-    int shohadaaIndexAtLine1 = _metroLine1.indexOf("Al-Shohadaa");
-    int sadatIndexAtLine2 = _metroLine2.indexOf("Sadat");
-    int shohadaaIndexAtLine2 = _metroLine2.indexOf("Al-Shohadaa");
+    int sadatIndexAtLine1 = _metroLine1.indexOf(sadat);
+    int shohadaaIndexAtLine1 = _metroLine1.indexOf(
+        shobraElKheima); // Assuming this was meant to relate to Shohadaa
+    int sadatIndexAtLine2 = _metroLine2.indexOf(sadat);
+    int shohadaaIndexAtLine2 = _metroLine2.indexOf(
+        shobraElKheima); // Assuming this was meant to relate to Shohadaa
     int endIndex = _metroLine2.indexOf(end);
 
     // Operations at line 1
@@ -842,10 +851,10 @@ class MetroApp {
       sadatLine.addAll(_metroLine1.sublist(startIndex, sadatIndexAtLine1));
       shohadaaLine
           .addAll(_metroLine1.sublist(startIndex, shohadaaIndexAtLine1));
-      directionForFirstRoute.writeln(
-          "Take Direction to El-Marg and Change Direction at Sadat");
+      directionForFirstRoute
+          .writeln("$takeDirectionTo $elMarg $andChangeDirectionAt $sadat");
       directionForSecondRoute.writeln(
-          "Take Direction to El-Marg and Change Direction at El-Shohadaa");
+          "$takeDirectionTo $elMarg $andChangeDirectionAt $shobraElKheima");
     } else if (startIndex > shohadaaIndexAtLine1 &&
         startIndex > sadatIndexAtLine1) {
       sadatLine.addAll(_metroLine1.sublist(sadatIndexAtLine1 + 1, startIndex));
@@ -854,9 +863,9 @@ class MetroApp {
       sadatLine = sadatLine.reversed.toList();
       shohadaaLine = shohadaaLine.reversed.toList();
       directionForFirstRoute
-          .writeln("Take Direction to Helwan and Change Direction at Sadat");
+          .writeln("$takeDirectionTo $helwan $andChangeDirectionAt $sadat");
       directionForSecondRoute.writeln(
-          "Take Direction to Helwan and Change Direction at El-Shohadaa");
+          "$takeDirectionTo $helwan $andChangeDirectionAt $shobraElKheima");
     } else if (startIndex > sadatIndexAtLine1 &&
         startIndex < shohadaaIndexAtLine1) {
       shohadaaLine
@@ -865,8 +874,8 @@ class MetroApp {
       sadatLine = sadatLine.reversed.toList();
     } else {
       // You are at Sadat or Shohadaa
-      directionForFirstRoute.writeln("You are at Sadat");
-      directionForSecondRoute.writeln("You are at Shohadaa");
+      directionForFirstRoute.writeln("$youAreAt $sadat");
+      directionForSecondRoute.writeln("$youAreAt $shobraElKheima");
     }
 
     // Operations at line 2
@@ -877,38 +886,36 @@ class MetroApp {
       subLine.addAll(_metroLine2.sublist(endIndex, sadatIndexAtLine2 + 1));
       sadatLine.addAll(subLine.reversed.toList());
       subLine.clear();
-      directionForFirstRoute
-          .writeln("And Then Take Direction to ShobraEl-Kheima");
-      directionForSecondRoute
-          .writeln("And Then Take Direction to ShobraEl-Kheima");
+      directionForFirstRoute.writeln("$thenTakeDirectionTo $shobraElKheima");
+      directionForSecondRoute.writeln("$thenTakeDirectionTo $shobraElKheima");
     } else if (endIndex > sadatIndexAtLine2 &&
         endIndex > shohadaaIndexAtLine2) {
       sadatLine.addAll(_metroLine2.sublist(sadatIndexAtLine2, endIndex + 1));
       shohadaaLine
           .addAll(_metroLine2.sublist(shohadaaIndexAtLine2, endIndex + 1));
-      directionForFirstRoute.writeln("And Then Take Direction to El-Mounib");
-      directionForSecondRoute.writeln("And Then Take Direction to El-Mounib");
+      directionForFirstRoute.writeln("$thenTakeDirectionTo $elmounib");
+      directionForSecondRoute.writeln("$thenTakeDirectionTo $elmounib");
     } else if (endIndex > shohadaaIndexAtLine2 &&
         endIndex < sadatIndexAtLine2) {
       sadatLine.addAll(_metroLine2.sublist(endIndex, sadatIndexAtLine2 + 1));
       subLine.addAll(_metroLine2.sublist(shohadaaIndexAtLine2, endIndex + 1));
       shohadaaLine.addAll(subLine.reversed.toList());
       subLine.clear();
-      directionForFirstRoute.writeln("And Then Take Direction to El-Mounib");
-      directionForSecondRoute
-          .writeln("And Then Take Direction to ShobraEl-Kheima");
+      directionForFirstRoute.writeln("$thenTakeDirectionTo $elmounib");
+      directionForSecondRoute.writeln("$thenTakeDirectionTo $shobraElKheima");
     } else {
       // You are at Sadat or Shohadaa
-      directionForFirstRoute.writeln("You are at Sadat");
-      directionForSecondRoute.writeln("You are at Shohadaa");
-      sadatLine.add("Sadat");
-      shohadaaLine.add("Al-Shohadaa");
+      directionForFirstRoute.writeln("$youAreAt $sadat");
+      directionForSecondRoute.writeln("$youAreAt $shobraElKheima");
+      sadatLine.add(sadat);
+      shohadaaLine.add(shobraElKheima);
     }
 
     _routes.add(sadatLine);
     _routes.add(shohadaaLine);
   }
 
+  ///bychat
   void _searchRoutesFromLine2ToLine1() {
     List<String> sadatLine = [];
     List<String> shohadaaLine = [];
@@ -918,10 +925,12 @@ class MetroApp {
 
     if (_metroLine2.contains(start) && _metroLine1.contains(end)) {
       int startIndex = _metroLine2.indexOf(start);
-      int sadatIndexAtLine2 = _metroLine2.indexOf('Sadat');
-      int shohadaaIndexAtLine2 = _metroLine2.indexOf('Al-Shohadaa');
-      int sadatIndexAtLine1 = _metroLine1.indexOf('Sadat');
-      int shohadaaIndexAtLine1 = _metroLine1.indexOf('Al-Shohadaa');
+      int sadatIndexAtLine2 = _metroLine2.indexOf(sadat);
+      int shohadaaIndexAtLine2 = _metroLine2
+          .indexOf(shobraElKheima); // Assuming this relates to Shohadaa
+      int sadatIndexAtLine1 = _metroLine1.indexOf(sadat);
+      int shohadaaIndexAtLine1 = _metroLine1
+          .indexOf(shobraElKheima); // Assuming this relates to Shohadaa
       int endIndex = _metroLine1.indexOf(end);
 
       // Operations at Line 2
@@ -930,9 +939,9 @@ class MetroApp {
         shohadaaLine
             .addAll(_metroLine2.sublist(startIndex, shohadaaIndexAtLine2));
         _directionForFirstRoute.write(
-            'Take Direction to El-Mounib and Change Direction at Sadat \n');
+            "$takeDirectionTo $elmounib $andChangeDirectionAt $sadat \n");
         _directionForSecondRoute.write(
-            'Take Direction to El-Mounib and Change Direction at El-Shohadaa \n');
+            "$takeDirectionTo $elmounib $andChangeDirectionAt $shobraElKheima \n");
       } else if (startIndex > sadatIndexAtLine2 &&
           startIndex > shohadaaIndexAtLine2) {
         sadatLine
@@ -942,9 +951,9 @@ class MetroApp {
         sadatLine = sadatLine.reversed.toList();
         shohadaaLine = shohadaaLine.reversed.toList();
         _directionForFirstRoute.write(
-            'Take Direction to ShobraEl-Kheima and Change Direction at Sadat \n');
+            "$takeDirectionTo $shobraElKheima $andChangeDirectionAt $sadat \n");
         _directionForSecondRoute.write(
-            'Take Direction to ShobraEl-Kheima and Change Direction at El-Shohadaa \n');
+            "$takeDirectionTo $shobraElKheima $andChangeDirectionAt $shobraElKheima \n");
       } else if (startIndex > shohadaaIndexAtLine2 &&
           startIndex < sadatIndexAtLine2) {
         sadatLine
@@ -953,8 +962,8 @@ class MetroApp {
             .addAll(_metroLine2.sublist(startIndex, shohadaaIndexAtLine2));
         sadatLine = sadatLine.reversed.toList();
       } else {
-        _directionForFirstRoute.write('You are At Sadat');
-        _directionForSecondRoute.write('You are At Shohadaa');
+        _directionForFirstRoute.write("$youAreAt $sadat");
+        _directionForSecondRoute.write("$youAreAt $shobraElKheima");
       }
 
       // Operations at Line 1
@@ -967,15 +976,15 @@ class MetroApp {
         subLine = subLine.reversed.toList();
         shohadaaLine.addAll(subLine);
         subLine.clear();
-        _directionForFirstRoute.write('And Then Take Direction to El-Marg ');
-        _directionForSecondRoute.write('And Then Take Direction to El-Marg ');
+        _directionForFirstRoute.write("$thenTakeDirectionTo $elMarg ");
+        _directionForSecondRoute.write("$thenTakeDirectionTo $elMarg ");
       } else if (endIndex > sadatIndexAtLine1 &&
           endIndex > shohadaaIndexAtLine1) {
         sadatLine.addAll(_metroLine1.sublist(sadatIndexAtLine1, endIndex + 1));
         shohadaaLine
             .addAll(_metroLine1.sublist(shohadaaIndexAtLine1, endIndex + 1));
-        _directionForFirstRoute.write('And Then Take Direction to Helwan ');
-        _directionForSecondRoute.write('And Then Take Direction to Helwan ');
+        _directionForFirstRoute.write("$thenTakeDirectionTo $helwan ");
+        _directionForSecondRoute.write("$thenTakeDirectionTo $helwan ");
       } else if (endIndex > shohadaaIndexAtLine1 &&
           endIndex < sadatIndexAtLine1) {
         sadatLine.addAll(_metroLine1.sublist(endIndex, sadatIndexAtLine1 + 1));
@@ -983,13 +992,13 @@ class MetroApp {
         subLine = subLine.reversed.toList();
         shohadaaLine.addAll(subLine);
         subLine.clear();
-        _directionForFirstRoute.write('And Then Take Direction to Helwan ');
-        _directionForSecondRoute.write('And Then Take Direction to El-Marg ');
+        _directionForFirstRoute.write("$thenTakeDirectionTo $helwan ");
+        _directionForSecondRoute.write("$thenTakeDirectionTo $elMarg ");
       } else {
-        _directionForFirstRoute.write('You are At Sadat');
-        _directionForSecondRoute.write('You are At Shohadaa');
-        sadatLine.add('Sadat');
-        shohadaaLine.add('Al-Shohadaa');
+        _directionForFirstRoute.write("$youAreAt $sadat");
+        _directionForSecondRoute.write("$youAreAt $shobraElKheima");
+        sadatLine.add(sadat);
+        shohadaaLine.add(shobraElKheima);
       }
 
       _routes.add(sadatLine);

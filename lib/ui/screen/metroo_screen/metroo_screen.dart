@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:metroappinflutter/data/local/cario_lines.dart';
 import 'package:metroappinflutter/data/local/coordinates.dart';
 import 'package:metroappinflutter/data/local/metroo_app.dart';
 import 'package:metroappinflutter/helper/location_helper.dart';
+import 'package:metroappinflutter/language/app_locale.dart';
 import 'package:metroappinflutter/ui/screen/metroo_screen/widget/enable_service_text.dart';
 import 'package:metroappinflutter/ui/screen/metroo_screen/widget/metro_dropdownmenu.dart';
 import 'package:metroappinflutter/ui/screen/metroo_screen/widget/nearst_statation_details.dart';
@@ -11,6 +12,7 @@ import 'package:metroappinflutter/ui/screen/station-detils_screen/station_screen
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metroappinflutter/ui/screen/metroo_screen/widget/address_confirmation_sheet.dart';
+import 'package:metroappinflutter/ui/screen/test.dart';
 import 'package:metroappinflutter/ui/shared_widgets/app_button.dart';
 import 'package:metroappinflutter/ui/shared_widgets/dialogs.dart';
 import '../../../di/di.dart';
@@ -20,6 +22,7 @@ import '../map-screen/map_screen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 class MetrooScreen extends StatefulWidget {
   @override
   State<MetrooScreen> createState() => _MetrooScreenState();
@@ -30,6 +33,7 @@ class _MetrooScreenState extends State<MetrooScreen> {
   final destinationController = TextEditingController();
   final addressController = TextEditingController();
   List<Station> stations = [];
+
   // Observables
   var currentLocation = Rxn<LatLng>();
   var nearestStationLocation = Rxn<LatLng>();
@@ -39,25 +43,28 @@ class _MetrooScreenState extends State<MetrooScreen> {
   var nearestStation = "".obs; // String? as RxnString
   var shortestDistance = Rx<double>(double.infinity); // double as Rx
   var isServiceEnabled = false.obs;
-
+  late String currentLanguage;
+  Map<String, String> allStationsCoordinates = {};
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    currentLanguage = Get.locale!.languageCode;
+    print(currentLanguage);
     getCurrentLocation();
-
   }
 
   void getCurrentLocation() async {
     await LocationHelper.getCurrentLocation();
 
     final currentposition =
-    await Geolocator.getLastKnownPosition().whenComplete(() {
+        await Geolocator.getLastKnownPosition().whenComplete(() {
       setState(() {});
     });
-    print('komosu ${currentposition!.longitude}');
-    if (!currentposition.isNull) {
+
+
+    if (currentposition != null) {
       currentLocation.value =
           LatLng(currentposition.latitude, currentposition.longitude);
       await findNearestStation(
@@ -67,13 +74,16 @@ class _MetrooScreenState extends State<MetrooScreen> {
       setState(() {});
     } else {
       Fluttertoast.showToast(
-        msg: "Location Services Disabled",
+        msg: "Location Services Disabled".tr,
         toastLength: Toast.LENGTH_SHORT,
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
+    // Fetch metro station items based on language
+    final cairoLines = CairoLines.getMetroStations(currentLanguage);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -81,32 +91,36 @@ class _MetrooScreenState extends State<MetrooScreen> {
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: SizedBox(
-              height: Get.height -
-                  Get.mediaQuery.padding.top,
+              height: Get.height - Get.mediaQuery.padding.top,
               child: Column(
                 children: [
                   // Space between button and dropdowns
-                  Text("Welcome To Cairo Metro \n We will Help You to Go Any Where"
-                  ,style: GoogleFonts.gowunBatang(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20,
-                      ),
+                  Text(
+                    '${'welcome'.tr}\n${'help'.tr}',
+                    style: GoogleFonts.gowunBatang(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   AppDropDownMenu(
-                    title: "Origin",
-                    hint: "Select  Your Origin",
+                    title: "origin".tr,
+                    hint: "select_your_origin".tr,
                     textEditingController: startController,
                     isCitySelected: true,
+                    items: cairoLines,
                     //  direction: "",
                   ),
-
                   // Space between dropdowns (optional)
                   Align(
                     alignment: Alignment.centerRight,
                     child: IconButton(
-                      icon: const Icon(Icons.sync, color: Colors.green,size: 30,),
+                      icon: const Icon(
+                        Icons.sync,
+                        color: Colors.green,
+                        size: 30,
+                      ),
                       onPressed: () {
                         String temp = startController.text;
                         startController.text = destinationController.text;
@@ -117,42 +131,40 @@ class _MetrooScreenState extends State<MetrooScreen> {
 
                   // Destination Stations Dropdown
                   AppDropDownMenu(
-                    title: "Destination",
-                    hint: "Select  Your Destination",
+                    title: "destination".tr,
+                    hint: "select_your_destination".tr,
                     textEditingController: destinationController,
                     isCitySelected: true,
-                    //  direction: "",
+                    items: cairoLines,
                   ),
 
                   const SizedBox(height: 32),
                   // Find My Route Button
                   MetrooAppButton(
                     icon: Icons.route,
-                    label: 'Show My Route',
+                    label: 'show_my_route'.tr,
                     onPressed: findMyRoute,
                     isLarge: true,
                   ),
-
 
                   const SizedBox(height: 16),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       Text(
-                        "Search Nearest Station \n According to Your Destination",
+                      Text(
+                        "search_nearest_station".tr,
                         style: GoogleFonts.gowunBatang(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
                           fontSize: 15,
                         ),
                         textAlign: TextAlign.center,
-
                       ),
                       const SizedBox(width: 8),
                       MetrooAppButton(
                         icon: Icons.search,
-                        label: 'Search',
+                        label: 'search'.tr,
                         onPressed: () {
                           showAddressConfirmationSheet();
                         },
@@ -166,8 +178,11 @@ class _MetrooScreenState extends State<MetrooScreen> {
                         ? NearestStationDetails(
                             nearestStation: nearestStation.value,
                             shortestDistance: shortestDistance.value,
+                            currentLanguage: currentLanguage,
                           )
-                        : EnableServiceText(getCurrentLocation: getCurrentLocation,);
+                        : EnableServiceText(
+                            getCurrentLocation: getCurrentLocation,
+                          );
                   }),
                 ],
               ),
@@ -207,16 +222,22 @@ class _MetrooScreenState extends State<MetrooScreen> {
 
       if (routes.length == 1) {
         Station station =
-            Station(path: routes[0], direction: metroApp.getDirection());
+            Station(path: routes[0], direction: metroApp.getDirection(),
+            );
+
         stations.add(station);
       } else {
         Station station1 = Station(
             path: routes[0],
             direction: metroApp.getDirectionForFirstRoute().toString());
+        station1.transList.addAll(metroApp.transList1);
+
         stations.add(station1);
         Station station2 = Station(
             path: routes[1],
             direction: metroApp.getDirectionForSecondRoute().toString());
+        station2.transList.addAll(metroApp.transList2);
+        print(metroApp.transList2);
         stations.add(station2);
       }
       Navigator.push(
@@ -227,7 +248,7 @@ class _MetrooScreenState extends State<MetrooScreen> {
       );
     } else {
       Fluttertoast.showToast(
-        msg: "Please Enter Valid Data",
+        msg: "please_enter_valid_data".tr,
         toastLength: Toast.LENGTH_SHORT,
       );
     }
@@ -239,26 +260,21 @@ class _MetrooScreenState extends State<MetrooScreen> {
     required double latitude,
     required double longitude,
   }) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevents dismissal by tapping outside
+      builder: (BuildContext context) {
+        return const LoadingDialog(); // Create and show the loading dialog
+      },
+    );
+
     try {
-      // Test if location services are enabled.
 
-      showDialog(
-        context: context,
-        barrierDismissible: false, // Prevents dismissal by tapping outside
-        builder: (BuildContext context) {
-          return const LoadingDialog(); // Create and show the loading dialog
-        },
-      );
-
-      // Combine all metro lines into a single map
-      Map<String, String> allStations = {
-        ...CairoLinesCorrdinates.metroLine1Coordinates(),
-        ...CairoLinesCorrdinates.metroLine2Coordinates(),
-        ...CairoLinesCorrdinates.metroLine3Coordinates(),
-      };
+      allStationsCoordinates =currentLanguage=='ar'? CairoLinesCorrdinates.allStationsArabic:CairoLinesCorrdinates.allStationsEnglish;
 
       // Iterate through each station
-      for (MapEntry<String, String> station in allStations.entries) {
+      for (MapEntry<String, String> station in allStationsCoordinates.entries) {
+        print(station);
         // Split the coordinate string into latitude and longitude
         List<String> coordinates = station.value.split(',');
 
@@ -293,13 +309,11 @@ class _MetrooScreenState extends State<MetrooScreen> {
         controller.text = nearestStation.value ?? '';
       } else {
         Fluttertoast.showToast(
-          msg: 'No stations found nearby',
+          msg: 'no_stations_found'.tr,
           toastLength: Toast.LENGTH_SHORT,
         );
       }
     } catch (e) {
-      // Handle any errors in fetching location
-      print('Error fetching location: ${e.toString()}');
       Fluttertoast.showToast(
         msg: 'Error fetching location: ${e.toString()}',
         toastLength: Toast.LENGTH_SHORT,
@@ -319,18 +333,19 @@ class _MetrooScreenState extends State<MetrooScreen> {
     response.fold(
       (errorMessage) {
         // Show error dialog when there is an error
+        print(errorMessage);
         showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Error'),
+              title: Text('error'.tr),
               content: Text(errorMessage),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('OK'),
+                  child: Text('ok'.tr),
                 ),
               ],
             );
@@ -366,5 +381,4 @@ class _MetrooScreenState extends State<MetrooScreen> {
       },
     );
   }
-
 }

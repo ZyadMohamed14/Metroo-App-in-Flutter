@@ -27,6 +27,7 @@ class AppDropDownMenu extends StatefulWidget {
 
 class _AppDropDownMenuState extends State<AppDropDownMenu> {
   /// This is the on text changed method which will display when the city text field is tapped.
+
   void onTextFieldTap() {
     DropDownState(
       DropDown(
@@ -121,6 +122,7 @@ class _AppDropDownMenuState extends State<AppDropDownMenu> {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

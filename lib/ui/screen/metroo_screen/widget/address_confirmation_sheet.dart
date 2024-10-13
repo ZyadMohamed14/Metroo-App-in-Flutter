@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+
 
 class AddressConfirmationSheet extends StatelessWidget {
   final TextEditingController addressController;
@@ -29,11 +31,11 @@ class AddressConfirmationSheet extends StatelessWidget {
                 Icon(Icons.location_on, color: Colors.greenAccent, size: 28), // Location icon
                 SizedBox(width: 8),
                 Text(
-                  'Confirm Your Destination Address',
+                  'confirm_your_destination_address'.tr,
                   style: GoogleFonts.gowunBatang(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.greenAccent,
+                    color: Colors.black45,
                   ),
                 ),
               ],
@@ -44,8 +46,8 @@ class AddressConfirmationSheet extends StatelessWidget {
             TextField(
               controller: addressController,
               decoration: InputDecoration(
-                labelText: 'Confirm Address',
-                hintText: 'Enter your address',
+                labelText: 'confirm_address'.tr,
+                hintText: 'enter_your_address'.tr,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -67,7 +69,7 @@ class AddressConfirmationSheet extends StatelessWidget {
                       Navigator.pop(context); // Close the bottom sheet
                     } else {
                       Fluttertoast.showToast(
-                        msg: "Please Provide an Address",
+                        msg: "please_provide_an_address".tr,
                         toastLength: Toast.LENGTH_SHORT,
                       );
                     }
@@ -80,7 +82,7 @@ class AddressConfirmationSheet extends StatelessWidget {
                     ),
                   ),
                   label: Text(
-                    'Confirm',
+                    'confirm'.tr,
                     style: GoogleFonts.gowunBatang(fontSize: 16, color: Colors.white),
                   ),
                 ),
@@ -97,7 +99,7 @@ class AddressConfirmationSheet extends StatelessWidget {
                     ),
                   ),
                   label: Text(
-                    'Cancel',
+                    'cancel'.tr,
                     style: GoogleFonts.gowunBatang(fontSize: 16, color: Colors.white),
                   ),
                 ),

@@ -2,6 +2,7 @@ class Station {
   late final String start;
   late final String end;
   final List<String> path;
+   List<String> transList=[];
   late double time;
   late int noOfStations;
   late double ticketPrice;
@@ -10,6 +11,7 @@ class Station {
   Station({
     required this.path,
     required this.direction,
+
   }) {
     calcData();
   }
@@ -47,7 +49,7 @@ class Station {
     }
 
 
-    int timePerStation = 4;
+    int timePerStation = 2;
     time = timePerStation * noOfStations.toDouble();
   }
 
