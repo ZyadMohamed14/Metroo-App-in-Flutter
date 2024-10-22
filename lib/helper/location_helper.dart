@@ -5,13 +5,33 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocationHelper {
   static Future<Position> getCurrentLocation() async {
-    bool isServicesEnabel = await Geolocator.isLocationServiceEnabled();
-
-    if (!isServicesEnabel) {
-      await Geolocator.requestPermission();
+    // Check if location services are enabled
+    bool isServicesEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!isServicesEnabled) {
+      throw Exception('Location services are disabled.'); // Notify that location services are disabled
     }
+
+    // Check permission status
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    // Request permission if it is denied
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw Exception('Location permissions are denied.'); // Notify that permissions are denied
+      }
+    }
+
+    // Check if permission is permanently denied
+    if (permission == LocationPermission.deniedForever) {
+      throw Exception(
+          'Location permissions are permanently denied. We cannot request permissions.'); // Notify that permissions are permanently denied
+    }
+
+    // If we reach this point, permissions are granted and services are enabled
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
   // static Future<Either<String, LatLng>> getCurrentLocation() async {
   //

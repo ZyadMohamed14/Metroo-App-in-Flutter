@@ -5,6 +5,7 @@ import 'package:metroappinflutter/language/app-locale_contoller.dart';
 import 'package:metroappinflutter/language/app_locale.dart';
 import 'package:metroappinflutter/ui/presentation/map/maps_cubi_cubit.dart';
 import 'package:metroappinflutter/ui/screen/dashboard_screen.dart';
+import 'package:metroappinflutter/ui/splash_screen.dart';
 import 'di/di.dart'; // Make sure this includes the necessary dependencies
 import'package:shared_preferences/shared_preferences.dart';
 late SharedPreferences sharedPref;
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         translations: AppTranslations(),
         locale:contoller.initLanguage ,
-        home: DashBoardScreen(),
+        home: SplashScreen(),
       ),
     );
   }

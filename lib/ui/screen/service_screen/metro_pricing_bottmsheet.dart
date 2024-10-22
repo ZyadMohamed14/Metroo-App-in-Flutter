@@ -1,6 +1,6 @@
-// Define a class to handle the Metro Pricing Bottom Sheet
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 class MetroPricingBottomSheet extends StatefulWidget {
   @override
   _MetroPricingBottomSheetState createState() => _MetroPricingBottomSheetState();
@@ -21,8 +21,20 @@ class _MetroPricingBottomSheetState extends State<MetroPricingBottomSheet> {
     } else {
       pricePerTicket = 8;
     }
+  }
 
-    numberOfTickets = numberOfStations; // Assuming one ticket per station
+  void increaseTickets() {
+    setState(() {
+      numberOfTickets++;
+    });
+  }
+
+  void decreaseTickets() {
+    setState(() {
+      if (numberOfTickets > 1) {
+        numberOfTickets--;
+      }
+    });
   }
 
   @override
@@ -63,13 +75,23 @@ class _MetroPricingBottomSheetState extends State<MetroPricingBottomSheet> {
           SizedBox(height: 16),
           _buildPricingInfo(),
           SizedBox(height: 16),
-          Text(
-            '${'numberOfTickets'.tr}: $numberOfTickets',
-            style: TextStyle(fontSize: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildTicketButton(Icons.remove, decreaseTickets),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  '$numberOfTickets',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              _buildTicketButton(Icons.add, increaseTickets),
+            ],
           ),
           SizedBox(height: 16),
           Text(
-            '${'totalPrice'.tr}: $pricePerTicket ${'pounds'.tr}',
+            '${'totalPrice'.tr}: ${pricePerTicket * numberOfTickets} ${'pounds'.tr}',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
@@ -86,6 +108,23 @@ class _MetroPricingBottomSheetState extends State<MetroPricingBottomSheet> {
         Text('- ${'pricingInfo10To16'.tr}'),
         Text('- ${'pricingInfo1To9'.tr}'),
       ],
+    );
+  }
+
+  // Custom button for increment and decrement
+  Widget _buildTicketButton(IconData icon, VoidCallback onPressed) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        shape: CircleBorder(), // Circular button
+        padding: EdgeInsets.all(14), // Padding inside the button
+        backgroundColor: Colors.blue, // Button color
+      ),
+      child: Icon(
+        icon,
+        color: Colors.white,
+        size: 24,
+      ),
     );
   }
 }

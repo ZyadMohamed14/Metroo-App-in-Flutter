@@ -4,31 +4,35 @@ import 'package:metroappinflutter/helper/extentions.dart';
 import '../../../../domain/model/station.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../shared_widgets/app_bar.dart';
+
 class StationDetailsItem extends StatelessWidget {
   final Station station;
-   List<String>transList=[];
-  String currentLanguage  = Get.locale!.languageCode;
+  List<String> transList = [];
+  String currentLanguage = Get.locale!.languageCode;
+
   StationDetailsItem({super.key, required this.station});
 
   @override
   Widget build(BuildContext context) {
+    print(station.direction);
+    String noOfStations = '';
+    String tiketPrice = '';
+    transList = station.transList;
+    if (currentLanguage == 'ar') {
+      noOfStations = station.path.length.toString().toArabicNumbers();
+      tiketPrice = station.ticketPrice.toString().toArabicNumbers();
+    } else {
+      noOfStations = station.path.length.toString();
+      tiketPrice = station.ticketPrice.toString();
+    }
 
-    String noOfStations='';
-    String tiketPrice='';
-     transList = station.transList;
-     if(currentLanguage=='ar'){
-        noOfStations =  station.path.length.toString().toArabicNumbers();
-        tiketPrice =   station.ticketPrice.toString().toArabicNumbers();
-
-     }else{
-       noOfStations =  station.path.length.toString();
-       tiketPrice =   station.ticketPrice.toString();
-     }
-
-     print(transList);
+    print(transList);
     return SafeArea(
       child: Scaffold(
-        appBar: MetroAppBar(title: 'route_details'.tr,), // Wrap the content in a Scaffold for proper layout handling
+        appBar: MetroAppBar(
+          title: 'route_details'.tr,
+        ),
+        // Wrap the content in a Scaffold for proper layout handling
         body: SingleChildScrollView(
           // Make the Column scrollable
           child: Container(
@@ -40,14 +44,12 @@ class StationDetailsItem extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      detailsItem("stations".tr, noOfStations,
-                          Icons.train),
+                      detailsItem("stations".tr, noOfStations, Icons.train),
                       const SizedBox(width: 10),
-                      detailsItem(
-                          "time".tr, formatTime(station.time.toInt()), Icons.access_time),
+                      detailsItem("time".tr, formatTime(station.time.toInt()),
+                          Icons.access_time),
                       const SizedBox(width: 10),
-                      detailsItem("price".tr,tiketPrice,
-                          Icons.attach_money),
+                      detailsItem("price".tr, tiketPrice, Icons.attach_money),
                       const SizedBox(width: 10),
                     ],
                   ),
@@ -59,8 +61,7 @@ class StationDetailsItem extends StatelessWidget {
                 const SizedBox(height: 10),
 
                 // The station widgets and transition widget
-                buildStationWidgets(
-                    station, 'stations'.tr),
+                buildStationWidgets(station, 'stations'.tr),
                 const SizedBox(height: 10),
               ],
             ),
@@ -216,9 +217,14 @@ class StationDetailsItem extends StatelessWidget {
   }
 
   Widget stationItem(
-      String stationName, int index, int listSize, Color lineColor,) {
+    String stationName,
+    int index,
+    int listSize,
+    Color lineColor,
+  ) {
     bool isTransitionStation = transList.contains(stationName);
-    if (isTransitionStation) stationName = '$stationName (${'transition_station'.tr})';
+    if (isTransitionStation && station.path.last != stationName)
+      stationName = '$stationName (${'transition_station'.tr})';
 
     Color transitionColor = Colors.orange;
     Color displayColor = isTransitionStation ? transitionColor : lineColor;
@@ -253,7 +259,9 @@ class StationDetailsItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Align(
-              alignment: currentLanguage=='ar'?Alignment.centerRight:Alignment.centerLeft,
+              alignment: currentLanguage == 'ar'
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
               child: Container(
                 height: 40, // Set the height of the divider
                 width: 8, // Divider thickness
@@ -264,9 +272,4 @@ class StationDetailsItem extends StatelessWidget {
       ],
     );
   }
-
-
-
 }
-
-

@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:metroappinflutter/data/local/cario_lines.dart';
 import 'package:metroappinflutter/data/local/coordinates.dart';
 import 'package:metroappinflutter/data/local/metroo_app.dart';
+import 'package:metroappinflutter/domain/model/map_modle.dart';
 import 'package:metroappinflutter/helper/location_helper.dart';
 import 'package:metroappinflutter/language/app_locale.dart';
 import 'package:metroappinflutter/ui/screen/metroo_screen/widget/enable_service_text.dart';
@@ -53,6 +54,7 @@ class _MetrooScreenState extends State<MetrooScreen> {
     currentLanguage = Get.locale!.languageCode;
     print(currentLanguage);
     getCurrentLocation();
+
   }
 
   void getCurrentLocation() async {
@@ -83,7 +85,7 @@ class _MetrooScreenState extends State<MetrooScreen> {
   @override
   Widget build(BuildContext context) {
     // Fetch metro station items based on language
-    final cairoLines = CairoLines.getMetroStations(currentLanguage);
+    final cairoLines = CairoLines.allCairoLines;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -174,11 +176,19 @@ class _MetrooScreenState extends State<MetrooScreen> {
 
                   const SizedBox(height: 16),
                   Obx(() {
-                    return nearestStation.value.isNotEmpty
+
+                    return nearestStation.value.isNotEmpty && currentLocation.value != null && nearestStationLocation.value != null
                         ? NearestStationDetails(
                             nearestStation: nearestStation.value,
                             shortestDistance: shortestDistance.value,
                             currentLanguage: currentLanguage,
+                      onOpenMap: () {
+                        // Call the openMap function and pass the locations
+                        openMap(
+                          targetLocation: currentLocation.value!,
+                          stationLocation: nearestStationLocation.value!,
+                        );
+                      },
                           )
                         : EnableServiceText(
                             getCurrentLocation: getCurrentLocation,
@@ -270,7 +280,8 @@ class _MetrooScreenState extends State<MetrooScreen> {
 
     try {
 
-      allStationsCoordinates =currentLanguage=='ar'? CairoLinesCorrdinates.allStationsArabic:CairoLinesCorrdinates.allStationsEnglish;
+      allStationsCoordinates =CairoLinesCorrdinates.allMetroCoordinates();
+
 
       // Iterate through each station
       for (MapEntry<String, String> station in allStationsCoordinates.entries) {
@@ -292,7 +303,7 @@ class _MetrooScreenState extends State<MetrooScreen> {
         // Update the nearest station if this one is closer
         if (distance < shortestDistance.value) {
           shortestDistance.value = distance;
-          nearestStation.value = station.key; // Store the station name
+          nearestStation.value = station.key.tr; // Store the station name
           // Store the station position
           nearestStationLocation.value =
               LatLng(stationLatitude, stationLongitude);

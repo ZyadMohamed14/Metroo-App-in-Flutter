@@ -9,12 +9,14 @@ class NearestStationDetails extends StatelessWidget {
   final String nearestStation;
   final String currentLanguage;
   final double shortestDistance;
+  final VoidCallback onOpenMap;  // Add this line
 
-  const NearestStationDetails({
+   NearestStationDetails({
     super.key,
     required this.nearestStation,
     required this.shortestDistance,
-    required this.currentLanguage
+    required this.currentLanguage,
+     required this.onOpenMap
   });
 
   @override
@@ -51,7 +53,7 @@ class NearestStationDetails extends StatelessWidget {
               icon: Icons.map,
               label: 'show_on_map'.tr,
               onPressed: () {
-               // print("Show on Map pressed for: $nearestStation");
+               onOpenMap();
               },
               isLarge: true,
             ),
@@ -144,9 +146,9 @@ class NearestStationDetails extends StatelessWidget {
   String searchStation(String station) {
 
     var transitionStation =currentLanguage=='ar'? CairoLines.transitionStationAr:CairoLines.transitionStation;
-    var metroLine1 = currentLanguage=='ar'?CairoLines.cairoLine1Ar():CairoLines.cairoLine1();
-    var metroLine2 = currentLanguage=='ar'?CairoLines.cairoLine2Ar():CairoLines.cairoLine2();
-    var metroLine3 = currentLanguage=='ar'?CairoLines.cairoLine3Ar():CairoLines.cairoLine3();
+    var metroLine1 = CairoLines.cairoLine1();
+    var metroLine2 =CairoLines.cairoLine2();
+    var metroLine3 = CairoLines.cairoLine3();
 
     if (transitionStation.containsKey(station)) {
       return transitionStation[station]!; // Access value directly using the key

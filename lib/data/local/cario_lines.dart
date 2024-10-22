@@ -4,224 +4,120 @@ class CairoLines {
   static List<String> cairoLine1() {
     List<String> metroLine1 = [
       "helwan".tr,
-      "Ain Helwan",
-      "Helwan University",
-      "Wadi Hof",
-      "Hadayek Helwan",
-      "ElMaasara",
-      "Tora ElAsmant",
-      "Kozzika",
-      "Tora ElBalad",
-      "Sakanat ElMaadi",
-      "Maadi",
-      "Hadayek ElMaadi",
-      "Dar ElSalam",
-      "ElZahraa",
-      "Mar Girgis",
-      "ElMalek ElSaleh",
-      "AlSayeda Zeinab",
-      "Saad Zaghloul",
-      "Sadat",
-      "Nasser",
-      "Orabi",
-      "AlShohadaa",
-      "Ghamra",
-      "ElDemerdash",
-      "Manshiet ElSadr",
-      "Kobri ElQobba",
-      "Hammamat ElQobba",
-      "Saray ElQobba",
-      "Hadayeq ElZaitoun",
-      "Helmeyet ElZaitoun",
-      "ElMatareyya",
-      "Ain Shams",
-      "Ezbet ElNakhl",
-      "ElMarg",
-      "New ElMarg"
+      "ain_helwan".tr,
+      "helwan_university".tr,
+      "wadi_hof".tr,
+      "hadayek_helwan".tr,
+      "el_maasara".tr,
+      "tora_el_asmant".tr,
+      "kozzika".tr,
+      "tora_el_balad".tr,
+      "sakanat_el_maadi".tr,
+      "maadi".tr,
+      "hadayek_el_maadi".tr,
+      "dar_el_salam".tr,
+      "el_zahraa".tr,
+      "mar_girgis".tr,
+      "el_malek_el_saleh".tr,
+      "al_sayeda_zeinab".tr,
+      "saad_zaghloul".tr,
+      "sadat".tr,
+      "nasser".tr,
+      "orabi".tr,
+      "al_shohadaa".tr,
+      "ghamra".tr,
+      "el_demerdash".tr,
+      "manshiet_el_sadr".tr,
+      "kobri_el_qobba".tr,
+      "hammamat_el_qobba".tr,
+      "saray_el_qobba".tr,
+      "hadayeq_el_zaitoun".tr,
+      "helmeyet_el_zaitoun".tr,
+      "el_matareyya".tr,
+      "ain_shams".tr,
+      "ezbet_el_nakhl".tr,
+      "el_marg".tr,
+      "new_el_marg".tr,
     ];
     return metroLine1;
   }
-  static List<String> cairoLine1Ar() {
-    List<String> cairoLine1Ar = [
-      "حلوان",
-      "عين حلوان",
-      "جامعة حلوان",
-      "وادي حوف",
-      "حدائق حلوان",
-      "المعصرة",
-      "طره الأسمنت",
-      "كوتسيكا",
-      "طرة البلد",
-      "سكنات المعادي",
-      "المعادي",
-      "حدائق المعادي",
-      "دار السلام",
-      "الزهراء",
-      "مار جرجس",
-      "الملك الصالح",
-      "السيدة زينب",
-      "سعد زغلول",
-      "السادات",
-      "ناصر",
-      "عرابي",
-      "الشهداء",
-      "غمرة",
-      "الدمرداش",
-      "منشية الصدر",
-      "كوبري القبة",
-      "حمامات القبة",
-      "سراي القبة",
-      "حدائق الزيتون",
-      "حلمية الزيتون",
-      "المطرية",
-      "عين شمس",
-      "عزبة النخل",
-      "المرج",
-      "المرج الجديدة",
-    ];
 
-    return cairoLine1Ar;
-  }
 
 
   static List<String> cairoLine2() {
     List<String> metroLine2 = [
-      "Shobra ElKheima",
-      "Kolleyyet ElZeraa",
-      "Mezallat",
-      "Khalafawy",
-      "St. Teresa",
-      "Rod ElFarag",
-      "Massara",
-      "AlShohadaa",
-      "Attaba",
-      "Mohamed Naguib",
-      "Sadat",
-      "Opera",
-      "Dokki",
-      "Bohooth",
-      "CairoUniversity",
-      "Faisal",
-      "Giza",
-      "Omm ElMasryeen",
-      "Sakiat Mekki",
-      "ElMounib"
+      "shobra_el_kheima".tr,
+      "kolleyyet_el_zeraa".tr,
+      "mezallat".tr,
+      "khalafawy".tr,
+      "st_teresa".tr,
+      "rod_el_farag".tr,
+      "massara".tr,
+      "al_shohadaa".tr,
+      "attaba".tr,
+      "mohamed_naguib".tr,
+      "sadat".tr,
+      "opera".tr,
+      "dokki".tr,
+      "bohooth".tr,
+      "cairo_university".tr,
+      "faisal".tr,
+      "giza".tr,
+      "omm_el_masryeen".tr,
+      "sakiat_mekki".tr,
+      "el_mounib".tr,
     ];
     return metroLine2;
   }
-  static List<String> cairoLine2Ar() {
-    List<String> cairoLine2Ar = [
-      "شبرا الخيمة",
-      "كلية الزراعة",
-      "مظلات",
-      "خلفاوي",
-      "سانت تيريز",
-      "روض الفرج",
-      "المسرة",
-      "الشهداء",
-      "العتبه",
-      "محمد نجيب",
-      "السادات",
-      "الأوبرا",
-      "الدقي",
-      "البحوث",
-      "جامعة القاهرة",
-      "فيصل",
-      "الجيزة",
-      "أم المصريين",
-      "ساقية مكي",
-      "المنيب"
-    ];
 
-    return cairoLine2Ar;
-  }
+
 
   static List<String> cairoLine3() {
     List<String> metroLine3 = [
-      "Road El Farg Corr",
-      "Ring Road",
-      "El Qumia",
-      "El Bohy",
-      "Imbaba",
-      "Sudan",
-      "KitKat",
-      "Safay Hegazy",
-      "Maspero",
-      "Nasser",
-      "Attaba",
-      "Bab El Shaaria",
-      "El Geish",
-      "Abdou Pasha",
-      "Abbasia",
-      "Cairo Fair",
-      "Stadium",
-      "Kolleyet ElBanat",
-      "Al Ahram",
-      "Haroun",
-      "Heliopolis",
-      "Alf Maskan",
-      "Nadi El Shams",
-      "Al Nozha",
-      "Hesham Barkat",
-      "Qubaa",
-      "Omar Ebn El Khattab",
-      "El Hayikstep",
-      "Adly Mansour"
+      "road_el_farg_corr".tr,
+      "ring_road".tr,
+      "el_qumia".tr,
+      "el_bohy".tr,
+      "imbaba".tr,
+      "sudan".tr,
+      "kitkat".tr,
+      "safay_hegazy".tr,
+      "maspero".tr,
+      "nasser".tr,
+      "attaba".tr,
+      "bab_el_shaaria".tr,
+      "el_geish".tr,
+      "abdou_pasha".tr,
+      "abbasia".tr,
+      "cairo_fair".tr,
+      "stadium".tr,
+      "kolleyet_el_banat".tr,
+      "al_ahram".tr,
+      "haroun".tr,
+      "heliopolis".tr,
+      "alf_maskan".tr,
+      "nadi_el_shams".tr,
+      "al_nozha".tr,
+      "hesham_barkat".tr,
+      "qubaa".tr,
+      "omar_ebn_el_khattab".tr,
+      "el_hayikstep".tr,
+      "adly_mansour".tr,
     ];
     return metroLine3;
   }
-  static List<String> cairoLine3Ar() {
-    List<String> cairoLine3Ar = [
-      "محور روض الفرج",
-      "طريق الدائري",
-      "القومية",
-      "البوهي",
-      "إمبابة",
-      "السودان",
-      "الكيت كات",
-      "صفاء حجازي",
-      "ماسبيرو",
-      'ناصر',
-      'العتبه',
-      "باب الشعريه",
-      "الجيش",
-      "عبده باشا",
-      "عباسية",
-      "معرض القاهرة",
-      "استاد",
-      "كلية البنات",
-      "الأهرام",
-      "هارون",
-      "هيليوبوليس",
-      "ألف مسكن",
-      "نادي الشمس",
-      "النزهة",
-      "هشام بركات",
-      "قباء",
-      "عمر بن الخطاب",
-      "الهايكستب",
-      "عدلي منصور"
-    ];
 
-    return cairoLine3Ar;
-  }
+
 
   static List<String> kitKatCairoUniversityLine = [
-    "KitKat",
-    "Tawfikia",
-    "Wadi ElNail",
-    "Gamat ElDawel",
-    "Bolaq ElDakror",
-    "CairoUniversity"
+    "kitkat".tr,
+    "tawfikia".tr,
+    "wadi_elnail".tr,
+    "gamate_ldawel".tr,
+    "bolaq_eldakror".tr,
+    "cairo_university".tr,
   ];
-  static List<String> kitKatCairoUniversityLineAr = [
-    "الكيت كات",
-    "التوفيقية",
-    "وادي النيل",
-    "جامعة الدول",
-    "بولاق الدكرور",
-    "جامعة القاهرة"
-  ];
+
 
   static Map<String,String> transitionStation = {
     "Sadat":"Transition With Line 1 and Line 2",
@@ -239,27 +135,13 @@ class CairoLines {
     "جامعة القاهرة": "محطة تبادلية مع فرع جامعة القاهرة والخط الثالث",
     "الكيت كات": "محطة تبادلية مع فرع جامعة القاهرة والخط الثاني"
   };
-  static List<SelectedListItem> allCairoLinesEnglish = [
+  static List<SelectedListItem> allCairoLines = [
     ...cairoLine1().map((station) => SelectedListItem(name: station)),
     ...cairoLine2().map((station) => SelectedListItem(name: station)),
     ...cairoLine3().map((station) => SelectedListItem(name: station)),
     ...kitKatCairoUniversityLine.map((station) => SelectedListItem(name: station))
   ];
-  static List<SelectedListItem> allCairoLinesArabic = [
-    ...cairoLine1Ar().map((station) => SelectedListItem(name: station)),
-    ...cairoLine2Ar().map((station) => SelectedListItem(name: station)),
-    ...cairoLine3Ar().map((station) => SelectedListItem(name: station)),
-    ...kitKatCairoUniversityLineAr.map((station) => SelectedListItem(name: station)),
-  ];
 
 
-
-  static List<SelectedListItem> getMetroStations(String language) {
-    if (language == 'en') {
-      return allCairoLinesEnglish; // Return English list if language is English
-    } else {
-      return allCairoLinesArabic; // Default to Arabic
-    }
-  }
 
   }

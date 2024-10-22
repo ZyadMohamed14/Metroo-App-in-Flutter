@@ -40,6 +40,11 @@ extension StationEntityToStation on StationEntity {
     );
   }
 }
+extension RemoveDuplicates on List<String> {
+  void  removeDuplicates() {
+    this.toSet().toList();
+  }
+}
 String formatTime(int timeInMinutes) {
   // Get the whole number of hours
   int hours = timeInMinutes ~/ 60;

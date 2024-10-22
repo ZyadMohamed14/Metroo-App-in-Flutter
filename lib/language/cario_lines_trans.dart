@@ -197,15 +197,15 @@ class CarioKiKatBranc {
   static Map<String, Map<String, String>> get keys => {
         'en': {
           "tawfikia": "Tawfikia",
-          'Wadi ElNail': 'Wadi ElNail',
-          'Gamat ElDawel': 'Gamat ElDawel',
-          'Bolaq ElDakror': 'Bolaq ElDakror',
+          'wadi_elnail': 'Wadi ElNail',
+          'gamate_ldawel': 'Gamat ElDawel',
+          'bolaq_eldakror': 'Bolaq ElDakror',
         },
         'ar': {
-          'Tawfikia': 'التوفيقية',
-          'Wadi ElNail': 'وادي النيل',
-          'Gamat ElDawel': 'جامعة الدول',
-          'Bolaq ElDakror': 'بولاق الدكرور',
+          'tawfikia': 'التوفيقية',
+          'wadi_elnail': 'وادي النيل',
+          'gamate_ldawel': 'جامعة الدول',
+          'bolaq_eldakror': 'بولاق الدكرور',
         },
       };
 }

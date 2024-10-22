@@ -12,6 +12,7 @@ class StationDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(stations[0].direction);
     return Scaffold(
       appBar: MetroAppBar(title: 'route_details'.tr,),
       body: ListView.builder(
