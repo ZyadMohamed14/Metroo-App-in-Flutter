@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:metroappinflutter/data/local/cario_lines.dart';
 import 'package:metroappinflutter/data/local/coordinates.dart';
 import 'package:metroappinflutter/data/local/metroo_app.dart';
-import 'package:metroappinflutter/domain/model/map_modle.dart';
+
 import 'package:metroappinflutter/helper/location_helper.dart';
 import 'package:metroappinflutter/language/app_locale.dart';
 import 'package:metroappinflutter/ui/screen/metroo_screen/widget/enable_service_text.dart';
